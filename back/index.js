@@ -22,6 +22,14 @@ dotenv.config();
 //   }
 // );
 
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+  next();
+});
+//has to come before routes/everything
+//whitelisting sites with different domain names/urls then the server itself
 
 app.use("/images", express.static(path.join(__dirname, "public/images")));
 
