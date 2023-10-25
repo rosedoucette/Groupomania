@@ -1,8 +1,6 @@
-const { Sequelize, DataTypes } = require("sequelize"); //pulling Sequalize out of sequelize
-const sequelize = new Sequelize({
-  dialect: "sqlite",
-  storage: "../../Database.db",
-}); //connecting to the database folder by passing in those 2 objects
+const { DataTypes } = require("sequelize");
+const sequelize = require("../Connect");
+
 
 const Post = sequelize.define(
   "Post",
@@ -19,8 +17,8 @@ const Post = sequelize.define(
       type: DataTypes.STRING,
     },
     likes: {
-      type: DataTypes.ARRAY,
-      default: [],
+      type: DataTypes.STRING,
+      default: "[]",
     },
   },
   { timestamps: true }
