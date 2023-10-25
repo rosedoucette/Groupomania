@@ -28,7 +28,7 @@ export default function Register() {
         password: password.current.value,
       }
       try {
-        await axios.post("/api/auth/register", user);
+        await axios.post("/api/auth/register", user); //if back/front not on 3000, point to it here before /api
         navigate("/login")
       } catch (err) {
         console.log(err)
