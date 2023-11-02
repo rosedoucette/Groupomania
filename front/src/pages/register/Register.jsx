@@ -19,6 +19,8 @@ export default function Register() {
 
   const handleClick = async (e) => { //this function prevents the default action which is refreshing the page when submitting
     e.preventDefault();
+    console.log(password)
+    console.log(passwordAgain)
     if (passwordAgain.current.value !== password.current.value) { //!== means they don't match
       password.current.setCustomValidity("Passwords don't match!"); //setting a custom message if passwords are not the same
     } else {
@@ -28,7 +30,7 @@ export default function Register() {
         password: password.current.value,
       }
       try {
-        await axios.post("/api/auth/register", user); //if back/front not on 3000, point to it here before /api
+        await axios.post(process.env.REACT_APP_API_URL + "/api/auth/register", user); //connecting/grabbing the base url from .env and adding the rest of the ""
         navigate("/login")
       } catch (err) {
         console.log(err)
