@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "react-scripts": "^3.0.1",
     "sqlite": "^5.0.1"
   }
 }
