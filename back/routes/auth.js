@@ -2,7 +2,6 @@ const router = require("express").Router();
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
 
-
 //REGISTER
 router.post("/register", async (req, res) => {
   try {
@@ -27,17 +26,20 @@ router.post("/register", async (req, res) => {
 
 //LOGIN
 router.post("/login", async (req, res) => {
-    try {
-        const user = await User.findOne({ email: req.body.email });
-        !user && res.status(404).json("user not found"); //is user doesn't exist, return 404//
+  try {
+    const user = await User.findOne({ email: req.body.email });
+    if (!user) return res.status(404).json("user not found"); //is user doesn't exist, return 404//
 
-        const validPassword = await bcrypt.compare(req.body.password, user.password) //comparing the req.body.password with the user password//
-        !validPassword && res.status(400).json("wrong password")
+    const validPassword = await bcrypt.compare(
+      req.body.password,
+      user.password
+    ); //comparing the req.body.password with the user password//
+    if (!validPassword) return res.status(404).json("wrong password");
 
-        res.status(200).json(user)
-    } catch (err) {
-        res.status(500).json(err)
-    }
+    res.status(200).json(user);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 module.exports = router;
