@@ -6,7 +6,6 @@ import { profileInfo } from "../../userDummyData";
 import { useEffect } from "react";
 import axios from "axios";
 import { AuthContext } from "../../context/AuthContext";
-import { Add, Remove } from '@material-ui/icons';
 import { Link } from "react-router-dom";
 
 export default function Rightbar({ user }) {
@@ -73,8 +72,8 @@ export default function Rightbar({ user }) {
         {user.username !== currentUser.username && (
           <button className="rightbarFollowButton" onClick={handleClick}>
             {followed ? "Unfollow" : "Follow"}
-            {followed ? <Remove /> : <Add />}
-            Follow<Add />
+            {followed ? "Remove" : "Add" }
+            Follow
           </button>
         )};
         <h4 className="rightbarTitle">User Information</h4>

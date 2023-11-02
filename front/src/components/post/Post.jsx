@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
 import "./post.css";
-import { MoreVert } from "@material-ui/icons";
 // import { users } from "../../dummyData";
 import buildFormatter from "react-timeago/lib/formatters/buildFormatter";
 import { Link } from "react-router-dom";
@@ -62,7 +61,7 @@ export default function Post({ post }) {
             {/* createdAt needs to be added to table */}
           </div>
           <div className="postTopRight"></div>
-          <MoreVert />
+         
         </div>
         <div className="postCenter">
           <span className="postText">{post?.desc}</span>
