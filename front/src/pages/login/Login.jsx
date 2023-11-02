@@ -36,9 +36,9 @@ export default function Login() {
             <input placeholder="Email" type="email" required minLength="6" className="loginInput" ref={email} />
             {/* required should create a popup that says thie field is required */}
             <input placeholder="Password" type="password" required className="loginInput" ref={password} />
-            <button className="loginButton" type="submit" disabled={isFetching}>Log In spinner thing</button>
+            <button className="loginButton" type="submit" disabled={isFetching}>Log In</button>
             <span className="loginForgot">Forgot Password?</span>
-            <button className="loginRegisterButton">
+            <button className="loginRegisterButton">Create a New Account
               {/* {isFetching ? <CircularProgress color="white" size="20px" /> : "Create a New Account"} */}
             </button>
           </form>

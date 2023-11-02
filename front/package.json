@@ -12,7 +12,8 @@
     "react-router-dom": "^6.17.0",
     "react-scripts": "5.0.1",
     "react-timeago": "^7.2.0",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "@babel/plugin-proposal-private-property-in-object":"7.21.11"
   },
   "scripts": {
     "start": "set PORT=3001 && react-scripts --openssl-legacy-provider start", 

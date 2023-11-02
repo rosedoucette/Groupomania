@@ -6,7 +6,6 @@ import { useNavigate } from "react-router";
 import { redirect } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 
-
 export default function Register() {
   const username = useRef();
   const email = useRef();
@@ -14,26 +13,32 @@ export default function Register() {
   const passwordAgain = useRef();
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
-  if (
-    user) { redirect("/") }
+  if (user) {
+    redirect("/");
+  }
 
-  const handleClick = async (e) => { //this function prevents the default action which is refreshing the page when submitting
+  const handleClick = async (e) => {
+    //this function prevents the default action which is refreshing the page when submitting
     e.preventDefault();
-    console.log(password)
-    console.log(passwordAgain)
-    if (passwordAgain.current.value !== password.current.value) { //!== means they don't match
+    console.log(password);
+    console.log(passwordAgain);
+    if (passwordAgain.current.value !== password.current.value) {
+      //!== means they don't match
       password.current.setCustomValidity("Passwords don't match!"); //setting a custom message if passwords are not the same
     } else {
       const user = {
         username: username.current.value,
         email: email.current.value,
         password: password.current.value,
-      }
+      };
       try {
-        await axios.post(process.env.REACT_APP_API_URL + "/api/auth/register", user); //connecting/grabbing the base url from .env and adding the rest of the ""
-        navigate("/login")
+        await axios.post(
+          process.env.REACT_APP_API_URL + "/api/auth/register",
+          user
+        ); //connecting/grabbing the base url from .env and adding the rest of the ""
+        navigate("/login");
       } catch (err) {
-        console.log(err)
+        console.log(err);
       }
     }
   };
@@ -53,11 +58,37 @@ export default function Register() {
         </div>
         <div className="loginRight">
           <form className="loginBox" onSubmit={handleClick}>
-            <input placeholder="Username" required ref={username} className="loginInput" />
-            <input placeholder="Email" required ref={email} className="loginInput" type="email" />
-            <input placeholder="Password" required ref={password} className="loginInput" type="password" minLength="6" />
-            <input placeholder="Password Again" required ref={passwordAgain} className="loginInput" type="password" />
-            <button className="loginButton" type="submit">Sign Up</button>
+            <input
+              placeholder="Username"
+              required
+              ref={username}
+              className="loginInput"
+            />
+            <input
+              placeholder="Email"
+              required
+              ref={email}
+              className="loginInput"
+              type="email"
+            />
+            <input
+              placeholder="Password"
+              required
+              ref={password}
+              className="loginInput"
+              type="password"
+              minLength="6"
+            />
+            <input
+              placeholder="Password Again"
+              required
+              ref={passwordAgain}
+              className="loginInput"
+              type="password"
+            />
+            <button className="loginButton" type="submit">
+              Sign Up
+            </button>
             <button className="loginRegisterButton">
               Login to your Account
             </button>
