@@ -55,3 +55,5 @@ export default function Profile() {
     </>
   );
 }
+
+//consider useNavigate here as well//

@@ -14,7 +14,7 @@ export default function Register() {
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
   if (user) {
-    redirect("/");
+    redirect("/home");
   }
 
   const handleClick = async (e) => {

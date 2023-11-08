@@ -27,7 +27,11 @@ router.post("/register", async (req, res) => {
 //LOGIN
 router.post("/login", async (req, res) => {
   try {
-    const user = await User.findOne({ email: req.body.email });
+    const user = await User.findOne({ where: { email: req.body.email } }) //where is ther syntax for sequelize
+      .then((anything) => {
+        console.log(anything);
+        return anything;
+      });
     if (!user) return res.status(404).json("user not found"); //is user doesn't exist, return 404//
 
     const validPassword = await bcrypt.compare(

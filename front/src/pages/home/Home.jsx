@@ -4,6 +4,7 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import Feed from "../../components/feed/Feed";
 import Rightbar from "../../components/rightbar/Rightbar";
 import "./home.css";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
   return (
@@ -17,3 +18,7 @@ export default function Home() {
     </>
   );
 }
+
+
+//check if user exists before rendering the topbar here//
+//useNavigate here
