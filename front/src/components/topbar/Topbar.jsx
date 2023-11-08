@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import "./topbar.css";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
+import { FaBell, FaComment, FaSearch, FaUser } from "react-icons/fa";
 
 export default function Topbar() {
 
@@ -16,6 +17,7 @@ export default function Topbar() {
       </div>
       <div className="topbarCenter"></div>
       <div className="searchbar">
+        <FaSearch className="searchIcon" />
         <input placeholder="Search for friends, posts, or video" className="searchInput" />
       </div>
       <div className="topbarRight"></div>
@@ -25,12 +27,15 @@ export default function Topbar() {
       </div>
       <div className="topbarIcons">
         <div className="topbarIconItem">
+          <FaUser />
           <span className="topbarIconBadge">1</span>
         </div>
         <div className="topbarIconItem">
+          <FaComment />
           <span className="topbarIconBadge">2</span>
         </div>
         <div className="topbarIconItem">
+          <FaBell />
           <span className="topbarIconBadge">1</span>
         </div>
       </div>

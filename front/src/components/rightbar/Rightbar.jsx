@@ -7,12 +7,15 @@ import { useEffect } from "react";
 import axios from "axios";
 import { AuthContext } from "../../context/AuthContext";
 import { Link } from "react-router-dom";
+import { FaMinus, FaPlus } from "react-icons/fa";
 
 export default function Rightbar({ user }) {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [friends, setFriends] = useState([]);
   const { user: currentUser, dispatch } = useContext(AuthContext);
-  const [followed, setFollowed] = useState(currentUser.followings.includes(user?.id)); //setting the initial state to follow button
+  const [followed, setFollowed] = useState(
+    currentUser.followings.includes(user?.id)
+  ); //setting the initial state to follow button
 
   useEffect(() => {
     setFollowed(currentUser.followings.includes(user?.id));
@@ -21,7 +24,7 @@ export default function Rightbar({ user }) {
   useEffect(() => {
     const getFriends = async () => {
       try {
-        const friendList = await axios.get("/users/friend/" + user._id); //going to use user from above, take the _id from this line, and fetch all friends 
+        const friendList = await axios.get("/users/friend/" + user._id); //going to use user from above, take the _id from this line, and fetch all friends
         setFriends(friendList.data);
       } catch (err) {
         console.log(err);
@@ -33,18 +36,21 @@ export default function Rightbar({ user }) {
   const handleClick = async () => {
     try {
       if (followed) {
-        await axios.put("/users/" + user._id + "/unfollow", { userId: currentUser._id });
+        await axios.put("/users/" + user._id + "/unfollow", {
+          userId: currentUser._id,
+        });
         dispatch({ type: "UNFOLLOW", payload: user._id });
       } else {
-        await axios.put("/users/" + user._id + "/follow", { userId: currentUser._id });
+        await axios.put("/users/" + user._id + "/follow", {
+          userId: currentUser._id,
+        });
         dispatch({ type: "FOLLOW", payload: user._id });
       }
     } catch (err) {
       console.log(err);
     }
-    setFollowed(!followed)
+    setFollowed(!followed);
   };
-
 
   const HomeRightbar = () => {
     return (
@@ -66,17 +72,18 @@ export default function Rightbar({ user }) {
     );
   };
 
-  const ProfileRightbar = ({ profileInfo, users }) => { //objects needed?
+  const ProfileRightbar = ({ profileInfo, users }) => {
+    //objects needed?
     return (
       <>
         {user.username !== currentUser.username && (
           <button className="rightbarFollowButton" onClick={handleClick}>
             {followed ? "Unfollow" : "Follow"}
-            {followed ? "Remove" : "Add" }
-            Follow
+            {followed ? <FaMinus /> : <FaPlus />}
+            Follow <FaPlus />
           </button>
-        )};
-        <h4 className="rightbarTitle">User Information</h4>
+        )}
+        ;<h4 className="rightbarTitle">User Information</h4>
         <div className="rightbarInfo">
           <div className="rightbarInfoItem">
             <span className="rightbarInfoKey">City:</span>
@@ -96,8 +103,8 @@ export default function Rightbar({ user }) {
               {user.relationship === 1
                 ? "Single"
                 : user.relationship === 2
-                  ? "Married"
-                  : "-"}
+                ? "Married"
+                : "-"}
               {/* if 1 then single, 2 then married, if nothing then nothing */}
             </span>
           </div>
@@ -105,9 +112,20 @@ export default function Rightbar({ user }) {
         <h4 className="rightbarTitle">User Friends</h4>
         <div className="rightbarFollowings">
           {friends.map((friend) => (
-            <Link to={"/profile/" + friend.username} style={{ textDecoration: "none" }}>
+            <Link
+              to={"/profile/" + friend.username}
+              style={{ textDecoration: "none" }}
+            >
               <div className="rightbarFollowing">
-                <img src={friend.profilePicture ? PF + friend.profilePicture : PF + "avatar.png"} alt="" className="rightbarFollowingImg" />
+                <img
+                  src={
+                    friend.profilePicture
+                      ? PF + friend.profilePicture
+                      : PF + "avatar.png"
+                  }
+                  alt=""
+                  className="rightbarFollowingImg"
+                />
                 <span className="rightbarFollowingName">{friend.username}</span>
                 {/* {users.map((u) => (
               <CloseFriend key={u.id} user={u} />
@@ -115,8 +133,8 @@ export default function Rightbar({ user }) {
             instead of img & span containers above*/}
               </div>
             </Link>
-          ))};
-
+          ))}
+          ;
         </div>
       </>
     );
@@ -125,7 +143,11 @@ export default function Rightbar({ user }) {
   return (
     <div className="rightbar">
       <div className="rightbarWrapper">
-        {profileInfo ? <ProfileRightbar users={users} profileInfo={profileInfo} /> : <HomeRightbar />}
+        {profileInfo ? (
+          <ProfileRightbar users={users} profileInfo={profileInfo} />
+        ) : (
+          <HomeRightbar />
+        )}
         {/* logic - if on profile, do profilerightbar, if no profile then do homerightbar */}
         {/* video changed profile ? to user ? */}
       </div>
