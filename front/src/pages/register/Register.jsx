@@ -36,7 +36,7 @@ export default function Register() {
           process.env.REACT_APP_API_URL + "/api/auth/register",
           user
         ); //connecting/grabbing the base url from .env and adding the rest of the ""
-        navigate("/login");
+        navigate("/home");
       } catch (err) {
         console.log(err);
       }
