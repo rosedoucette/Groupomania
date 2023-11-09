@@ -21,7 +21,7 @@ export default function Feed({ username }) {
       );
     };
     fetchPost();
-  }, [username, user._id]);
+  }, [username, user]); //user instead of user._id
   return (
     <div className="feed">
       <div className="feedWrapper">

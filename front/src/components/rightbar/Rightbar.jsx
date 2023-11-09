@@ -13,13 +13,18 @@ export default function Rightbar({ user }) {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [friends, setFriends] = useState([]);
   const { user: currentUser, dispatch } = useContext(AuthContext);
-  const [followed, setFollowed] = useState(
-    currentUser.followings.includes(user?.id)
-  ); //setting the initial state to follow button
+  const [followed, setFollowed] = useState(false);
+  //took out:
+  // (currentUser.followings.includes(user?.id));
+  //? is called optional chaining
+  //setting the initial state to follow button
 
   useEffect(() => {
-    setFollowed(currentUser.followings.includes(user?.id));
-  }, [currentUser, user.id]);
+    if (currentUser && currentUser.followings && user) {
+      //added this line as a defensive coding approach
+      setFollowed(currentUser.followings.includes(user?.id));
+    }
+  }, [currentUser, user]); //user instead of user.id
 
   useEffect(() => {
     const getFriends = async () => {
@@ -72,7 +77,7 @@ export default function Rightbar({ user }) {
     );
   };
 
-  const ProfileRightbar = ({ profileInfo, users }) => {
+  const ProfileRightbar = ({ profileInfo, users, followed, user, currentUser }) => {
     //objects needed?
     return (
       <>
