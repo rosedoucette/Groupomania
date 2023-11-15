@@ -23,24 +23,30 @@ dotenv.config();
 // );
 
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, DELETE, PATCH, OPTIONS"
+  );
   next();
 });
 //has to come before routes/everything
 //whitelisting sites with different domain names/urls then the server itself
 
-app.use("/images", express.static(path.join(__dirname, "public/images")));
+app.use("/api/images", express.static(path.join(__dirname, "public/images")));
 
 //middleware
 app.use(express.json()); //body parser for making requests
 app.use(helmet());
-app.use(morgan("common"));
+app.use(morgan("dev")); //changed common to dev
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "public/images");
+    cb(null, path.join(__dirname, "public/images/")); //ensures you provide an absolute path for the image upload destination
   },
   filename: (req, file, cb) => {
     cb(null, req.body.name); //referencing data.append"name" from Share.jsx
@@ -48,11 +54,12 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage });
-app.post("/back/upload", upload.single("file"), (req, res) => {
+app.post("/api/back/upload", upload.single("file"), (req, res) => {
   try {
     return res.status(200).json("File uploaded successfully");
   } catch (err) {
-
+    console.log(error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
@@ -63,7 +70,6 @@ app.use("/api/post", postRoute);
 app.listen(3000, () => {
   console.log("Backend server is running!");
 });
-
 
 //TEST MESSAGES ON LOCALHOST ON BROWSER//
 // app.get("/", (req, res) => {

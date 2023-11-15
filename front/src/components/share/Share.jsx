@@ -6,7 +6,7 @@ import { FaFolderPlus, FaLocationArrow, FaSmile, FaTag } from "react-icons/fa";
 
 export default function Share() {
   const { user } = useContext(AuthContext);
-  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  // const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const desc = useRef();
   const [file, setFile] = useState(null);
 
@@ -24,12 +24,12 @@ export default function Share() {
       newPost.img = fileName; //for newPost img you will indicate the file name/identifier using fileName
     }
     try {
-      await axios.post("/upload", data); //referencing the "/back/upload" from post request from back/index.js
+      await axios.post("//localhost:3000/api/back/upload", data); //referencing the "/back/upload" from post request from back/index.js
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     }
     try {
-      await axios.post("/posts", newPost);
+      await axios.post("//localhost:3000/api/post", newPost);
       window.location.reload(); //this should refresh the page after adding a new post to the timeline
     } catch (err) {}
   };
@@ -51,7 +51,7 @@ export default function Share() {
             alt=""
           />
           <input
-            placeholder={"What's on your mind" + user.username + "?"}
+            placeholder={"What's on your mind " + user.username + "?"}
             className="shareInput"
             ref={desc}
           />

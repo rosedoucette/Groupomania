@@ -7,7 +7,6 @@ import { useEffect } from "react";
 import axios from "axios";
 import { AuthContext } from "../../context/AuthContext";
 import { Link } from "react-router-dom";
-import { FaMinus, FaPlus } from "react-icons/fa";
 
 export default function Rightbar({ user }) {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
@@ -77,11 +76,7 @@ export default function Rightbar({ user }) {
     );
   };
 
-  const ProfileRightbar = ({
-    profileInfo,
-    users,
-    user,
-  }) => {
+  const ProfileRightbar = ({ profileInfo, users, user }) => {
     //objects needed?
     console.log(user);
     console.log(currentUser);
@@ -94,7 +89,7 @@ export default function Rightbar({ user }) {
             Follow <FaPlus />
           </button>
         )} */}
-        ;<h4 className="rightbarTitle">User Information</h4>
+        <h4 className="rightbarTitle">User Information</h4>
         <div className="rightbarInfo">
           <div className="rightbarInfoItem">
             <span className="rightbarInfoKey">City:</span>
@@ -145,7 +140,6 @@ export default function Rightbar({ user }) {
               </div>
             </Link>
           ))}
-          ;
         </div>
       </>
     );
