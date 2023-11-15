@@ -77,17 +77,23 @@ export default function Rightbar({ user }) {
     );
   };
 
-  const ProfileRightbar = ({ profileInfo, users, followed, user, currentUser }) => {
+  const ProfileRightbar = ({
+    profileInfo,
+    users,
+    user,
+  }) => {
     //objects needed?
+    console.log(user);
+    console.log(currentUser);
     return (
       <>
-        {user.username !== currentUser.username && (
+        {/* {user?.username !== currentUser.username && (
           <button className="rightbarFollowButton" onClick={handleClick}>
             {followed ? "Unfollow" : "Follow"}
             {followed ? <FaMinus /> : <FaPlus />}
             Follow <FaPlus />
           </button>
-        )}
+        )} */}
         ;<h4 className="rightbarTitle">User Information</h4>
         <div className="rightbarInfo">
           <div className="rightbarInfoItem">
@@ -149,7 +155,11 @@ export default function Rightbar({ user }) {
     <div className="rightbar">
       <div className="rightbarWrapper">
         {profileInfo ? (
-          <ProfileRightbar users={users} profileInfo={profileInfo} />
+          <ProfileRightbar
+            user={user}
+            users={users}
+            profileInfo={profileInfo}
+          />
         ) : (
           <HomeRightbar />
         )}

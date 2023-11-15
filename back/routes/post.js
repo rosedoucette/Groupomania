@@ -3,7 +3,7 @@ const Post = require("../models/Post");
 const User = require("../models/User");
 
 //create a post
-router.post("/", async (req, res) => {
+router.post("//localhost:3000/api/", async (req, res) => {
   // "/" means homepage
   const newPost = new Post(req.body);
   try {
@@ -15,7 +15,7 @@ router.post("/", async (req, res) => {
 });
 
 //update post
-router.put("/:id", async (req, res) => {
+router.put("//localhost:3000/api/:id", async (req, res) => {
   //:id to verify user
   try {
     const post = await Post.findById(req.params.id);
@@ -32,7 +32,7 @@ router.put("/:id", async (req, res) => {
 });
 
 //delete a post
-router.delete("/:id", async (req, res) => {
+router.delete("//localhost:3000/api/:id", async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
     if (post.userId === req.body.userId) {
@@ -47,7 +47,7 @@ router.delete("/:id", async (req, res) => {
 });
 
 //like / dislike a post
-router.put("/:id/like", async (req, res) => {
+router.put("//localhost:3000/api/:id/like", async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
     if (!post.likes.includes(req.body.userId)) {
@@ -64,7 +64,7 @@ router.put("/:id/like", async (req, res) => {
 });
 
 //get a post
-router.get("/id", async (req, res) => {
+router.get("//localhost:3000/api/id", async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
     res.status(200).json(post);
@@ -74,23 +74,23 @@ router.get("/id", async (req, res) => {
 });
 
 //get timeline posts
-router.get("/timeline/:userId", async (req, res) => {
-  try {
+router.get("//localhost:3000/api/timeline/:userId", async (req, res) => {
+  
     const currentUser = await User.findById(req.params.userId);
-    const userPosts = await Post.find({ userId: currentUser._id }); //finds all posts from this userId, as defined in post model
+    const userPosts = await Post.find({ userId: currentUser.id }); //finds all posts from this userId, as defined in post model
     const friendPosts = await Promise.all(
       currentUser.followings.map((friendId) => {
         return Post.find({ userId: friendId });
       })
     );
     res.status(200).json(userPosts.concat(...friendPosts)); //take all friendPosts and concat with this post....what is concat?
-  } catch (err) {
-    res.status(500).json(err);
-  }
+  // } catch (err) {
+  //   res.status(500).json(err);
+  // }
 });
 
 //get all user's posts
-router.get("/profile/:username", async (req, res) => {
+router.get("//localhost:3000/api/profile/:username", async (req, res) => {
   try {
     const user = await User.findOne({ username: req.params.username })
     const posts = await Post.find({ userId: user._id });

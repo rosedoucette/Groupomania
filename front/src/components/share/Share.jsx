@@ -33,7 +33,11 @@ export default function Share() {
       window.location.reload(); //this should refresh the page after adding a new post to the timeline
     } catch (err) {}
   };
+  if (!user){
+    return (null)
+  }
   return (
+    console.log(user),
     <div className="share">
       <div className="shareWrapper">
         <div className="shareTop">
@@ -41,8 +45,8 @@ export default function Share() {
             className="shareProfileImg"
             src={
               user.profilePicture
-                ? PF + user.profilePicture
-                : PF + "/avatar.png"
+                ? user.profilePicture
+                : "/avatar.png"
             }
             alt=""
           />

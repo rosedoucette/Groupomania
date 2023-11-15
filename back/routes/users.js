@@ -3,7 +3,7 @@ const router = require("express").Router();
 const bcrypt = require("bcrypt");
 
 //update user
-router.put("/:id", async (req, res) => {
+router.put("//localhost:3000/api/:id", async (req, res) => {
     if (req.body.userId === req.params.id || req.body.isAdmin) { //params.id is referncing the id on the line above. we're checking if they are the same ids.
         if (req.body.password) {
             try {
@@ -27,7 +27,7 @@ router.put("/:id", async (req, res) => {
 });
 
 //delete user
-router.delete("/:id", async (req, res) => {
+router.delete("//localhost:3000/api/:id", async (req, res) => {
     if (req.body.userId === req.params.id || req.body.isAdmin) {
         try {
             await User.findByIdAndDelete(req.params.id);
@@ -41,7 +41,7 @@ router.delete("/:id", async (req, res) => {
 });
 
 //get a user
-router.get("/", async (req, res) => {
+router.get("//localhost:3000/api/", async (req, res) => {
     const userId = req.query.userId;
     const username = req.query.username;
     try {
@@ -56,7 +56,7 @@ router.get("/", async (req, res) => {
 });
 
 //get friends
-router.get("/friends/:userId", async (req, res) => {
+router.get("//localhost:3000/api/friend/:userId", async (req, res) => {
     try {
         const user = await User.findById(req.params.userId); //userId defined just above
         const friends = await Promise.all(
@@ -76,7 +76,7 @@ router.get("/friends/:userId", async (req, res) => {
 });
 
 //follow a user
-router.put("/:id/follow", async (req, res) => {
+router.put("//localhost:3000/api/:id/follow", async (req, res) => {
     if (req.body.userId !== req.params.id) { //checking if it's the same user
         try {
             const user = await User.findById(req.params.id); //we want to find the user defined in the put string :/id/
@@ -97,7 +97,7 @@ router.put("/:id/follow", async (req, res) => {
 });
 
 //unfollow a user
-router.put("/:id/unfollow", async (req, res) => {
+router.put("//localhost:3000/api/:id/unfollow", async (req, res) => {
     if (req.body.userId !== req.params.id) {
         try {
             const user = await User.findById(req.params.id);
