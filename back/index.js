@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const cors = require("cors");
 const { Sequelize } = require("sequelize");
 const dotenv = require("dotenv");
 const helmet = require("helmet");
@@ -22,6 +23,9 @@ dotenv.config();
 //   }
 // );
 
+
+app.use(cors()); //cors middleware
+
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
@@ -37,7 +41,7 @@ app.use((req, res, next) => {
 //has to come before routes/everything
 //whitelisting sites with different domain names/urls then the server itself
 
-app.use("/api/images", express.static(path.join(__dirname, "public/images")));
+app.use("/api/images", express.static(path.join(__dirname, "public/images/")));
 
 //middleware
 app.use(express.json()); //body parser for making requests

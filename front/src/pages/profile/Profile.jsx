@@ -7,11 +7,19 @@ import Rightbar from "../../components/rightbar/Rightbar";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router";
+import { useNavigate } from "react-router-dom";
 
 export default function Profile() {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [user] = useState({}); //removed setUser [user, setUser]
   const username = useParams().username;
+  console.log(user);
+  const navigate = useNavigate();
+  React.useEffect(() => {
+    if (!user) {
+      navigate("/login");
+    }
+  });
 
   useEffect(() => {
     const fetchUser = async () => {

@@ -28,7 +28,7 @@ export default function Rightbar({ user }) {
   useEffect(() => {
     const getFriends = async () => {
       try {
-        const friendList = await axios.get("/users/friend/" + user._id); //going to use user from above, take the _id from this line, and fetch all friends
+        const friendList = await axios.get("/users/friend/" + user.id); //going to use user from above, take the id from this line, and fetch all friends
         setFriends(friendList.data);
       } catch (err) {
         console.log(err);
@@ -40,15 +40,15 @@ export default function Rightbar({ user }) {
   const handleClick = async () => {
     try {
       if (followed) {
-        await axios.put("/users/" + user._id + "/unfollow", {
-          userId: currentUser._id,
+        await axios.put("/users/" + user.id + "/unfollow", {
+          userId: currentUser.id,
         });
-        dispatch({ type: "UNFOLLOW", payload: user._id });
+        dispatch({ type: "UNFOLLOW", payload: user.id });
       } else {
-        await axios.put("/users/" + user._id + "/follow", {
-          userId: currentUser._id,
+        await axios.put("/users/" + user.id + "/follow", {
+          userId: currentUser.id,
         });
-        dispatch({ type: "FOLLOW", payload: user._id });
+        dispatch({ type: "FOLLOW", payload: user.id });
       }
     } catch (err) {
       console.log(err);

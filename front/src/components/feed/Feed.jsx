@@ -21,14 +21,14 @@ export default function Feed({ username }) {
       );
     };
     fetchPost();
-  }, [username, user]); //user instead of user._id
+  }, [username, user]); //user instead of user.id
   return (
     <div className="feed">
       <div className="feedWrapper">
         {(!username || username === user.username) && <Share />}
         {/* if user = username, view the Share. so you can only see the share box on your own profile  */}
         {posts.map((p) => (
-          <Post key={p._id} post={p} /> //key bc using map. p.id bc all posts have an id.
+          <Post key={p.id} post={p} /> //key bc using map. p.id bc all posts have an id.
         ))}
       </div>
     </div>

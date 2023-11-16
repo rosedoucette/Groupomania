@@ -13,7 +13,7 @@ export default function Share() {
   const submitHandler = async (e) => {
     e.preventDefault();
     const newPost = {
-      userId: user._id,
+      userId: user.id,
       desc: desc.current.value, //using this current value bc desc is a useRef item as defined above
     };
     const data = new FormData();
@@ -68,7 +68,7 @@ export default function Share() {
         <form className="shareBottom" onSubmit={submitHandler}>
           <div className="shareOptions">
             <label htmlFor="file" className="shareOption">
-              <FaFolderPlus htmlColor="tomato" className="ShareIcon" />
+              <FaFolderPlus style={{color: "tomato"}} className="ShareIcon" />
               <span className="shareOptionText">Photo or Video</span>
               <input
                 style={{ display: "none" }}
@@ -79,15 +79,15 @@ export default function Share() {
               />
             </label>
             <div className="shareOption">
-              <FaTag htmlColor="tomato" className="ShareIcon" />
+              <FaTag style={{color: "blue"}} className="ShareIcon" />
               <span className="shareOptionText">Tag</span>
             </div>
             <div className="shareOption">
-              <FaLocationArrow htmlColor="tomato" className="ShareIcon" />
+              <FaLocationArrow style={{color: "green"}} className="ShareIcon" />
               <span className="shareOptionText">Location</span>
             </div>
             <div className="shareOption">
-              <FaSmile htmlColor="tomato" className="ShareIcon" />
+              <FaSmile style={{color: "goldenrod"}} className="ShareIcon" />
               <span className="shareOptionText">Feelings</span>
             </div>
           </div>
