@@ -6,6 +6,19 @@ import axios from 'axios';
 import { AuthContext } from "../../context/AuthContext";
 // import { Posts } from "../../dummyData";
 
+// export default function Feed() {
+//   return (
+//     <div className="feed">
+//       <div className="feedWrapper">
+//         <Share />
+//         {Posts.map((p) => (
+//           <Post key={p.id} post={p} />
+//         ))}
+//       </div>
+//     </div>
+//   );
+// }
+
 export default function Feed({ username }) {
   const [posts, setPosts] = useState([]);
   const { user } = useContext(AuthContext);

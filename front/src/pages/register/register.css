@@ -22,7 +22,8 @@
 
 .loginLogo {
     width: 400px;
-    height: 350px;
+    height: 200px;
+    padding: 20px;
   }
 
 .loginDesc{
@@ -73,4 +74,29 @@
     font-size: 20px;
     font-weight: 500;
     cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .login {
+        background-color: #f0f2f5;
+    }
+    .loginWrapper {
+        width: 100%;
+        display: block;
+    }
+    .loginLeft {
+        display: flex;
+        align-items: center;
+    }
+    .loginLogo {
+        width: 350px;
+    }
+    .loginDesc {
+        display: flex;
+        padding-bottom: 20px;
+        padding-left: 15px;
+    }
+    .loginRight {
+        display: flex;
+    }
 }

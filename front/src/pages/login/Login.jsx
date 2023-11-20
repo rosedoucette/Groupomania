@@ -29,12 +29,12 @@ export default function Login() {
       <div className="loginWrapper">
         <div className="loginLeft">
           <img
-            src="assets/CompanyLogos/icon-black.png"
+            src="assets/CompanyLogos/icon-black1.png"
             alt=""
             className="loginLogo"
           />
           <span className="loginDesc">
-            Connect with coworkers on Groupomania Social!
+            Login to connect with coworkers on Groupomania Social!
           </span>
         </div>
         <div className="loginRight">
