@@ -23,7 +23,6 @@ dotenv.config();
 //   }
 // );
 
-
 app.use(cors()); //cors middleware
 
 app.use((req, res, next) => {
@@ -45,7 +44,7 @@ app.use("/api/images", express.static(path.join(__dirname, "public/images/")));
 
 //middleware
 app.use(express.json()); //body parser for making requests
-app.use(helmet());
+app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(morgan("dev")); //changed common to dev
 
 const storage = multer.diskStorage({
@@ -60,6 +59,10 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 app.post("/api/back/upload", upload.single("file"), (req, res) => {
   try {
+    console.log(req.file); //who is uploading the pic.
+    // so the pic and username are linked.
+    // Grab user from database so it knows who's profile picture is uploaded
+    // Grab the user. update the user with profile pic.
     return res.status(200).json("File uploaded successfully");
   } catch (err) {
     console.log(error);

@@ -24,7 +24,7 @@ function App() {
         <Route path="/home" element={<Home />} />
 
 
-        <Route path="/profile:username" element={<Profile />} />
+        <Route path="/profile/:username" element={<Profile />} />
 
 
         {/* Router/Routes/Route...helps us to Routes between the pages using different Urls */}

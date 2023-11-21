@@ -25,7 +25,7 @@ export default function Profile() {
     const fetchUser = async () => {
       const res = await axios.get(`/users?username=${username}`);
       // setPosts(res.data);
-      console.log(res)
+      console.log(res);
     };
     fetchUser();
   }, [username]);
@@ -40,13 +40,29 @@ export default function Profile() {
             <div className="profileCover">
               <img
                 className="profileCoverImg"
-                src={user.coverPicture ? PF + user.coverPicture : PF + "/coverPicture.png"} //if you wanted logic for the picture then change to...{user.coverPicture ? PF+user.coverPicture : PF+"profiles/(insert blank cover photo)"}..if cover picture then use, if no cover picture then use this blank
+                src={
+                  user.coverPicture
+                    ? PF + user.coverPicture
+                    : PF + "/coverPicture.png"
+                } //if you wanted logic for the picture then change to...{user.coverPicture ? PF+user.coverPicture : PF+"profiles/(insert blank cover photo)"}..if cover picture then use, if no cover picture then use this blank
                 alt=""
               />
               <img
                 className="profileUserImg"
-                src={user.coverPicture ? PF + user.coverPicture : PF + "/avatar.png"} //removed {`${PF}profiles/Profile1.png`} from both
+                src={
+                  user.coverPicture
+                    ? PF + user.coverPicture
+                    : PF + "/avatar.png"
+                } //removed {`${PF}profiles/Profile1.png`} from both
                 alt=""
+              />
+              <input
+                type="file"
+                onChange={(e) => {
+                  console.log(e.target);
+                  console.log(e.target.value);
+                  console.log(e.target.files);
+                }} //this is what makes the choose file button lol 
               />
             </div>
             <div className="profileInfo">
