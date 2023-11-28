@@ -78,8 +78,8 @@ export default function Rightbar({ user }) {
 
   const ProfileRightbar = ({ profileInfo, users, user }) => {
     //objects needed?
-    console.log(user);
-    console.log(currentUser);
+    // console.log(user);
+    // console.log(currentUser);
     return (
       <>
         {/* {user?.username !== currentUser.username && (

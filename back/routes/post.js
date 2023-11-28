@@ -74,7 +74,7 @@ router.get("/api/id", async (req, res) => {
 });
 
 //get timeline posts
-router.get("/api/timeline/:userId", async (req, res) => {
+router.get("/api/post/timeline/:userId", async (req, res) => {
 
   const currentUser = await User.findById(req.params.userId);
   const userPosts = await Post.find({ userId: currentUser.id }); //finds all posts from this userId, as defined in post model

@@ -13,7 +13,7 @@ export default function Profile() {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [user] = useState({}); //removed setUser [user, setUser]
   const username = useParams().username;
-  console.log(user);
+  // console.log(user);
   const navigate = useNavigate();
   React.useEffect(() => {
     if (!user) {
@@ -64,6 +64,27 @@ export default function Profile() {
                   console.log(e.target.files);
                 }} //this is what makes the choose file button lol 
               />
+              {/* <script>
+    Function to handle file selection and update profileUserImg
+    document.getElementById('profilePictureInput').addEventListener('change', function (e) {
+        var fileInput = e.target;
+        var profileUserImg = document.getElementById('profileUserImg');
+
+        // Check if a file is selected
+        if (fileInput.files && fileInput.files[0]) {
+            var reader = new FileReader();
+
+            // Set up the reader to load the selected image
+            reader.onload = function (e) {
+                // Update the src attribute of profileUserImg
+                profileUserImg.src = e.target.result;
+            };
+
+            // Read the selected file as a data URL
+            reader.readAsDataURL(fileInput.files[0]);
+        }
+    });
+</script> */}
             </div>
             <div className="profileInfo">
               <h4 className="profileInfoName">{user.username}</h4>

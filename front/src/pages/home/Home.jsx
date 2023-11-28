@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function Home() {
   const { user } = useContext(AuthContext);
-  console.log(user);
+  // console.log(user);
   const navigate = useNavigate();
   React.useEffect(() => {
     if (!user) {

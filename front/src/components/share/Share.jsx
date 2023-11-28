@@ -37,7 +37,7 @@ export default function Share() {
     return null;
   }
   return (
-    console.log(user.profilePicture),
+    // console.log(user.profilePicture),
     (
       <div className="share">
         <div className="shareWrapper">
