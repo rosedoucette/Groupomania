@@ -8,66 +8,71 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
+import { useContext } from "react";
 
-// function ProfilePictureUpload() {
-//   const [profileImage, setProfileImage] = useState("default-profile-image.jpg");
+export function ProfilePictureUpload({ setProfileUserImg }) {
+  const handleFileChange = (e) => {
+    const fileInput = e.target;
 
-//   const handleFileChange = (e) => {
-//     const fileInput = e.target;
+    if (fileInput.files && fileInput.files[0]) {
+      // const reader = new FileReader();
 
-//     if (fileInput.files && fileInput.files[0]) {
-//       const reader = new FileReader();
+      // reader.onload = (e) => {
+      setProfileUserImg(fileInput.files[0]);
+      // };
+    }
+  };
 
-//       reader.onload = (e) => {
-//         setProfileImage(e.target.result);
-//       };
-
-//       reader.readAsDataURL(fileInput.files[0]);
-//     }
-//   };
-
-//   return (
-//     <div>
-//       <input
-//         type="file"
-//         onChange={(e) => {
-//           console.log(e.target);
-//           console.log(e.target.value);
-//           console.log(e.target.files);
-//         }} //this is what makes the choose file button lol
-//       />
-//       <input
-//         type="file"
-//         id="profilePictureInput"
-//         accept="image/*"
-//         onChange={handleFileChange}
-//       />
-//     </div>
-//   );
-// }
-
-// export default ProfilePictureUpload;
+  return (
+    <div>
+      <input
+        type="file"
+        id="profilePictureInput"
+        accept="image/*"
+        onChange={handleFileChange}
+      />
+      {/* add button to submit img in the profile component. here do the axios */}
+    </div>
+  );
+}
 
 export default function Profile() {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
-  const [user] = useState({}); //removed setUser [user, setUser]
+  const { user: currentUser } = useContext(AuthContext);
   const username = useParams().username;
+  const [user, setUser] = useState(
+    (currentUser && currentUser.username === username && currentUser) || null
+  ); // if user and current user is the same as the one in the url, then just use the current user that's in context
+  const [loading, setLoading] = useState(currentUser ? false : true); //if current user is null, then no one is logged in/not the person who did log in
+  const [profileUserImg, setProfileUserImg] = useState(null);
   // console.log(user);
   const navigate = useNavigate();
-  React.useEffect(() => {
-    if (!user) {
-      navigate("/login");
-    }
-  });
 
   useEffect(() => {
+    if (!loading && !user) {
+      debugger;
+      navigate("/login");
+    }
+  }, [loading, user]);
+
+  useEffect(() => {
+    if (!loading) return;
     const fetchUser = async () => {
-      const res = await axios.get(`//localhost:3000/api/users?username=${username}`);
+      const res = await axios
+        .get(`//localhost:3000/api/users?username=${username}`)
+        .then((data) => setUser(data))
+        .catch((error) => {
+          console.log(error);
+        });
       // setPosts(res.data);
       console.log(res);
+      setLoading(false);
     };
     fetchUser();
-  }, [username]);
+  }, [username, loading]);
+
+  if (!user) return <h3>User not found</h3>;
 
   return (
     <>
@@ -95,14 +100,7 @@ export default function Profile() {
                 } //removed {`${PF}profiles/Profile1.png`} from both
                 alt=""
               />
-              <input
-                type="file"
-                onChange={(e) => {
-                  console.log(e.target);
-                  console.log(e.target.value);
-                  console.log(e.target.files);
-                }} //this is what makes the choose file button lol
-              />
+              <ProfilePictureUpload setProfileUserImg={setProfileUserImg} />
               {/* <script>
     Function to handle file selection and update profileUserImg
     document.getElementById('profilePictureInput').addEventListener('change', function (e) {
