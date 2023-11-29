@@ -9,6 +9,45 @@ import axios from "axios";
 import { useParams } from "react-router";
 import { useNavigate } from "react-router-dom";
 
+// function ProfilePictureUpload() {
+//   const [profileImage, setProfileImage] = useState("default-profile-image.jpg");
+
+//   const handleFileChange = (e) => {
+//     const fileInput = e.target;
+
+//     if (fileInput.files && fileInput.files[0]) {
+//       const reader = new FileReader();
+
+//       reader.onload = (e) => {
+//         setProfileImage(e.target.result);
+//       };
+
+//       reader.readAsDataURL(fileInput.files[0]);
+//     }
+//   };
+
+//   return (
+//     <div>
+//       <input
+//         type="file"
+//         onChange={(e) => {
+//           console.log(e.target);
+//           console.log(e.target.value);
+//           console.log(e.target.files);
+//         }} //this is what makes the choose file button lol
+//       />
+//       <input
+//         type="file"
+//         id="profilePictureInput"
+//         accept="image/*"
+//         onChange={handleFileChange}
+//       />
+//     </div>
+//   );
+// }
+
+// export default ProfilePictureUpload;
+
 export default function Profile() {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [user] = useState({}); //removed setUser [user, setUser]
@@ -23,7 +62,7 @@ export default function Profile() {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const res = await axios.get(`/users?username=${username}`);
+      const res = await axios.get(`//localhost:3000/api/users?username=${username}`);
       // setPosts(res.data);
       console.log(res);
     };
@@ -62,7 +101,7 @@ export default function Profile() {
                   console.log(e.target);
                   console.log(e.target.value);
                   console.log(e.target.files);
-                }} //this is what makes the choose file button lol 
+                }} //this is what makes the choose file button lol
               />
               {/* <script>
     Function to handle file selection and update profileUserImg

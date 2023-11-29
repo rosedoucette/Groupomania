@@ -1,6 +1,12 @@
 import React from "react";
 import "./sidebar.css";
-import { FaBookmark, FaCalendarDay, FaGraduationCap, FaQuestionCircle, FaRss } from "react-icons/fa";
+import {
+  FaBookmark,
+  FaCalendarDay,
+  FaGraduationCap,
+  FaQuestionCircle,
+  FaRss,
+} from "react-icons/fa";
 
 import { users } from "../../dummyData";
 import CloseFriend from "../closeFriend/CloseFriend";
@@ -34,12 +40,10 @@ export default function Sidebar() {
         <button className="sidebarButton">Show More</button>
         <hr className="sidebarHr" />
         <ul className="sidebarFriendList">
-          <li>
-            {users.map((u) => (
-              <CloseFriend key={u.id} user={u} />
-            ))}
-            {/* For each user, it's gonna return our new component 'CloseFriend' */}
-          </li>
+          {users.map((u) => (
+            <CloseFriend key={u.id} user={u} />
+          ))}
+          {/* For each user, it's gonna return our new component 'CloseFriend' */}
         </ul>
       </div>
     </div>

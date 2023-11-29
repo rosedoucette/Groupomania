@@ -28,7 +28,7 @@ export default function Rightbar({ user }) {
   useEffect(() => {
     const getFriends = async () => {
       try {
-        const friendList = await axios.get("/users/friend/" + user.id); //going to use user from above, take the id from this line, and fetch all friends
+        const friendList = await axios.get("//localhost:3000/api/users/friend/" + user.id); //going to use user from above, take the id from this line, and fetch all friends
         setFriends(friendList.data);
       } catch (err) {
         console.log(err);
@@ -104,15 +104,16 @@ export default function Rightbar({ user }) {
         </div>
         <div className="rightbarInfo">
           <div className="rightbarInfoItem">
-            <span className="rightbarInfoKey">Relationship:</span>
-            <span className="rightbarInfoValue">
+            <span className="rightbarInfoKey">Position:</span>
+            <span className="rightbarInfoValue">{user.position}</span>
+            {/* <span className="rightbarInfoValue">
               {user.relationship === 1
                 ? "Single"
                 : user.relationship === 2
                 ? "Married"
                 : "-"}
-              {/* if 1 then single, 2 then married, if nothing then nothing */}
-            </span>
+              if 1 then single, 2 then married, if nothing then nothing
+            </span> */}
           </div>
         </div>
         <h4 className="rightbarTitle">User Friends</h4>

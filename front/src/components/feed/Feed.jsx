@@ -26,9 +26,12 @@ export default function Feed({ username }) {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
+        // if (!user) {
+        //   throw new Error();
+        // }
         const res = username
-          ? await axios.get("//localhost:3000/api/profile/" + user.username)
-          : await axios.get("//localhost:3000/api/timeline/" + user.id);
+          ? await axios.get("//localhost:3000/api/profile/" + user?.username)
+          : await axios.get("//localhost:3000/api/timeline/" + user?.id);
         setPosts(
           res.data.sort((p1, p2) => {
             return new Date(p2.createdAt) - new Date(p1.createdAt); //sorts the posts by date/time, newest first then older ones after
@@ -43,7 +46,7 @@ export default function Feed({ username }) {
   return (
     <div className="feed">
       <div className="feedWrapper">
-        {(!username || username === user.username) && <Share />}
+        {(!username || username === user?.username) && <Share />}
         {/* if user = username, view the Share. so you can only see the share box on your own profile  */}
         {posts.map((p) => (
           <Post key={p.id} post={p} /> //key bc using map. p.id bc all posts have an id.
