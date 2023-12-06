@@ -26,14 +26,23 @@ export default function Topbar() {
   const handleDeleteAccount = async () => {
     try {
       // Make a delete request using Axios
-      await axios.delete(`/api/users/${user._id}`, {
+      const response = await axios.delete(`https://localhost:3000/api/users/${user._id}`, {
         headers: {
           Authorization: `Bearer ${process.env.REACT_APP_YOUR_AUTH_TOKEN}`, // Replace with your actual authentication token
         },
       });
 
+       // Check the response status or data for success
+    if (response.status === 200) {
+      // Account deleted successfully
+      // Perform additional actions if needed, such as logging out the user
+
       // After successful deletion, perform logout
       handleLogout();
+    } else {
+      // Handle other response statuses or display an error message
+      console.error("Account deletion failed:", response.data);
+    }
     } catch (error) {
       console.error("Error deleting account:", error);
     }

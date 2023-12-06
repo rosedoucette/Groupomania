@@ -66,7 +66,7 @@ export default function Rightbar({ user }) {
             <b>Conor</b> and <b>3 other friends</b> have a birthday today
           </span>
         </div>
-        <img className="rightbarAd" src="assets/ad.png" alt="" />
+        <img className="rightbarAd" src="/assets/ad.png" alt="" />
         <h4 className="rightbarTitle">Online Friends</h4>
         <ul className="rightbarFriendList">
           {users.map((u) => (
@@ -89,7 +89,7 @@ export default function Rightbar({ user }) {
             <b>Kelly</b> and <b>3 other friends</b> have a birthday today
           </span>
         </div>
-        <img className="rightbarAd" src="assets/ad.png" alt="" />
+        <img className="rightbarAd" src="/assets/ad.png" alt="" />
         {/* {user?.username !== currentUser.username && (
           <button className="rightbarFollowButton" onClick={handleClick}>
             {followed ? "Unfollow" : "Follow"}

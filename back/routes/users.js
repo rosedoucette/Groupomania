@@ -41,9 +41,10 @@ router.delete("/api/:id", async (req, res) => {
 });
 
 //get a user
-router.get("/api/", async (req, res) => {
+router.get("/api/users", async (req, res) => {
     const userId = req.query.userId;
-    const username = req.query.username;
+    const username = decodeURIComponent(req.query.username);
+    console.log(username);
     try {
         const user = userId
             ? await User.findById(userId) //if user has userId
