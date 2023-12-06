@@ -56,7 +56,7 @@ router.get("/api/", async (req, res) => {
 });
 
 //get friends
-router.get("/api/friend/:userId", async (req, res) => {
+router.get("/api/friend/:userId", async (req, res) => { //friends???
     try {
         const user = await User.findById(req.params.userId); //userId defined just above
         const friends = await Promise.all(

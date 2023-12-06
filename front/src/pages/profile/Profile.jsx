@@ -45,13 +45,13 @@ export default function Profile() {
     (currentUser && currentUser.username === username && currentUser) || null
   ); // if user and current user is the same as the one in the url, then just use the current user that's in context
   const [loading, setLoading] = useState(currentUser ? false : true); //if current user is null, then no one is logged in/not the person who did log in
-  const [profileUserImg, setProfileUserImg] = useState(null);
+  const [ setProfileUserImg] = useState(null); //removed profileUserImg,
   // console.log(user);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!loading && !user) {
-      debugger;
+      // debugger;
       navigate("/login");
     }
   }, [loading, user]);

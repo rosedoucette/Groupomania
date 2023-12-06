@@ -11,8 +11,8 @@ import { Link } from "react-router-dom";
 export default function Rightbar({ user }) {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [friends, setFriends] = useState([]);
-  const { user: currentUser, dispatch } = useContext(AuthContext);
-  const [followed, setFollowed] = useState(false);
+  const { user: currentUser } = useContext(AuthContext); //removed , dispatch
+  const [ setFollowed] = useState(false); //removed followed,
   //took out:
   // (currentUser.followings.includes(user?.id));
   //? is called optional chaining
@@ -37,24 +37,25 @@ export default function Rightbar({ user }) {
     getFriends();
   }, [user]); //whatever goes inside the array here is called the dependency
 
-  const handleClick = async () => {
-    try {
-      if (followed) {
-        await axios.put("/users/" + user.id + "/unfollow", {
-          userId: currentUser.id,
-        });
-        dispatch({ type: "UNFOLLOW", payload: user.id });
-      } else {
-        await axios.put("/users/" + user.id + "/follow", {
-          userId: currentUser.id,
-        });
-        dispatch({ type: "FOLLOW", payload: user.id });
-      }
-    } catch (err) {
-      console.log(err);
-    }
-    setFollowed(!followed);
-  };
+  //FOR FOLLOWS AND UNFOLLOWS:
+  // const handleClick = async () => {
+  //   try {
+  //     if (followed) {
+  //       await axios.put("/users/" + user.id + "/unfollow", {
+  //         userId: currentUser.id,
+  //       });
+  //       dispatch({ type: "UNFOLLOW", payload: user.id });
+  //     } else {
+  //       await axios.put("/users/" + user.id + "/follow", {
+  //         userId: currentUser.id,
+  //       });
+  //       dispatch({ type: "FOLLOW", payload: user.id });
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  //   setFollowed(!followed);
+  // };
 
   const HomeRightbar = () => {
     return (
@@ -76,12 +77,19 @@ export default function Rightbar({ user }) {
     );
   };
 
-  const ProfileRightbar = ({ profileInfo, users, user }) => {
+  const ProfileRightbar = ({ user }) => {
     //objects needed?
     // console.log(user);
     // console.log(currentUser);
     return (
       <>
+      <div className="birthdayContainer">
+          <img className="birthdayImg" src="/assets/birthday.png" alt="" />
+          <span className="birthdayText">
+            <b>Kelly</b> and <b>3 other friends</b> have a birthday today
+          </span>
+        </div>
+        <img className="rightbarAd" src="assets/ad.png" alt="" />
         {/* {user?.username !== currentUser.username && (
           <button className="rightbarFollowButton" onClick={handleClick}>
             {followed ? "Unfollow" : "Follow"}
@@ -116,7 +124,8 @@ export default function Rightbar({ user }) {
             </span> */}
           </div>
         </div>
-        <h4 className="rightbarTitle">User Friends</h4>
+        
+        {/* <h4 className="rightbarTitle">User Friends</h4> */}
         <div className="rightbarFollowings">
           {friends.map((friend) => (
             <Link

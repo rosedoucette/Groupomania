@@ -44,14 +44,14 @@ export default function Post({ post }) {
       <div className="postWrapper">
         <div className="postTop">
           <div className="postTopLeft">
-            <Link to={`profile/${user.username}`}>
+            <Link to={`//localhost:3000/api/profile/${user.username}`}>
               {/* Link should allow click on profile img to link to profile page */}
               <img
                 className="postProfileImg"
                 src={
                   user.profilePicture
                     ? PF + user.profilePicture
-                    : PF + "profiles/avatar.png"
+                    : PF + "/profiles/avatar.png"
                 } //use profile pic?... :if no profile pic, use avatar photo
                 alt=""
               />
