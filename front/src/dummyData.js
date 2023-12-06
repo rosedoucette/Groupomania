@@ -4,23 +4,33 @@ export const users = [
         id:3,
         profilePicture: "profiles/3.png", //removed assets/
         username: "Kelly Sue",
+        fromCity: "Ohio",
+        position: "Front End",
     },
     {
         id:4,
         profilePicture: "profiles/4.png",
         username: "Rafael Smith",
+        fromCity: "Illinois",
+        position: "Back End",
     },{
         id:5,
         profilePicture: "profiles/5.png",
         username: "Kirsten Jones",
+        fromCity: "L.A.",
+        position: "Front End",
     },{
         id:6,
         profilePicture: "profiles/6.png",
         username: "Sam Dutton",
+        fromCity: "Yellowstone",
+        position: "Back End",
     },{
         id:8,
         profilePicture: "profiles/7.png",
         username: "Noah Brown",
+        fromCity: "Dallas",
+        position: "Front End",
     },
 ];
 

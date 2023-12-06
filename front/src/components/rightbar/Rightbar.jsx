@@ -99,10 +99,10 @@ export default function Rightbar({ user }) {
         )} */}
         <h4 className="rightbarTitle">User Information</h4>
         <div className="rightbarInfo">
-          <div className="rightbarInfoItem">
+          {/* <div className="rightbarInfoItem">
             <span className="rightbarInfoKey">City:</span>
             <span className="rightbarInfoValue">{user.city}</span>
-          </div>
+          </div> */}
         </div>
         <div className="rightbarInfo">
           <div className="rightbarInfoItem">

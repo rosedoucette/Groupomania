@@ -3,7 +3,7 @@ const router = require("express").Router();
 const bcrypt = require("bcrypt");
 
 //update user
-router.put("/api/:id", async (req, res) => {
+router.put("/:id", async (req, res) => {
     if (req.body.userId === req.params.id || req.body.isAdmin) { //params.id is referncing the id on the line above. we're checking if they are the same ids.
         if (req.body.password) {
             try {
@@ -27,7 +27,7 @@ router.put("/api/:id", async (req, res) => {
 });
 
 //delete user
-router.delete("/api/:id", async (req, res) => {
+router.delete("/:id", async (req, res) => {
     if (req.body.userId === req.params.id || req.body.isAdmin) {
         try {
             await User.findByIdAndDelete(req.params.id);
@@ -41,23 +41,26 @@ router.delete("/api/:id", async (req, res) => {
 });
 
 //get a user
-router.get("/api/users", async (req, res) => {
+router.get("/", async (req, res) => {
     const userId = req.query.userId;
     const username = decodeURIComponent(req.query.username);
     console.log(username);
-    try {
+    console.log(userId);
+    
         const user = userId
             ? await User.findById(userId) //if user has userId
-            : await User.findOne({ username: username }); //if user has username
-        const { password, updatedAt, ...other } = user._doc; //doc refences the info from the database request
+            : await User.findOne({where:{ username: username }}).catch((e)=>{
+                console.log(e)
+            }); //if user has username 
+            if (!user) {return res.status(404).json('user not found')}
+            console.log(user);
+        const { password, updatedAt, ...other } = user.dataValues; 
         res.status(200).json(other);
-    } catch (err) {
-        res.status(500).json(err);
-    }
+
 });
 
 //get friends
-router.get("/api/friend/:userId", async (req, res) => { //friends???
+router.get("/friend/:userId", async (req, res) => { //friends???
     try {
         const user = await User.findById(req.params.userId); //userId defined just above
         const friends = await Promise.all(
@@ -77,7 +80,7 @@ router.get("/api/friend/:userId", async (req, res) => { //friends???
 });
 
 //follow a user
-router.put("/api/:id/follow", async (req, res) => {
+router.put("/:id/follow", async (req, res) => {
     if (req.body.userId !== req.params.id) { //checking if it's the same user
         try {
             const user = await User.findById(req.params.id); //we want to find the user defined in the put string :/id/
@@ -98,7 +101,7 @@ router.put("/api/:id/follow", async (req, res) => {
 });
 
 //unfollow a user
-router.put("/api/:id/unfollow", async (req, res) => {
+router.put("/:id/unfollow", async (req, res) => {
     if (req.body.userId !== req.params.id) {
         try {
             const user = await User.findById(req.params.id);

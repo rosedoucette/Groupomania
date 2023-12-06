@@ -61,19 +61,21 @@ export default function Profile() {
     const fetchUser = async () => {
       const res = await axios
         .get(`//localhost:3000/api/users?username=${username}`)
-        .then((data) => setUser(data))
+        .then((data) => {
+          setUser(data);
+          console.log(data);})
         .catch((error) => {
           console.log(error);
         });
-      // setPosts(res.data);
-      console.log(res);
+      // // setPosts(res.data);
+      // console.log(res);
       setLoading(false);
     };
     fetchUser();
   }, [username, loading]);
 
   if (!user) return <h3>User not found</h3>;
-
+console.log(user);
   return (
     <>
       <Topbar />
