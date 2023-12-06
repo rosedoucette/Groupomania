@@ -98,3 +98,28 @@
     cursor: pointer;
     margin-right: 15px;
 }
+
+.profileDropdown {
+    position: absolute;
+    top: 50px; /* Adjust this value to control the dropdown's distance from the profile picture */
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1; /* Ensure the dropdown is above other elements */
+    display: flex;
+    flex-direction: column;
+    min-width: 120px; /* Set a minimum width for the dropdown */
+  }
+  
+  .dropdownItem {
+    padding: 10px;
+    text-decoration: none;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .dropdownItem:hover {
+    background-color: #f1f1f1;
+  }
