@@ -9,6 +9,10 @@ const Post = sequelize.define(
       type: DataTypes.STRING,
       required: true,
     },
+    userId: {
+      type: DataTypes.STRING,
+      required: true,
+    },
     desc: {
       type: DataTypes.STRING,
       max: 500,

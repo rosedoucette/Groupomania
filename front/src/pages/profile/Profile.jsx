@@ -62,8 +62,8 @@ export default function Profile() {
       const res = await axios
         .get(`//localhost:3000/api/users?username=${username}`)
         .then((data) => {
-          setUser(data);
-          console.log(data);})
+          console.log(data);
+          setUser(data);})
         .catch((error) => {
           console.log(error);
         });

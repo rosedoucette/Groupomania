@@ -1,11 +1,14 @@
 const router = require("express").Router();
 const Post = require("../models/Post");
 const User = require("../models/User");
+const upload = require("../multer");
 
 //create a post
-router.post("/api/back/upload", async (req, res) => { 
+router.post("/back/upload", upload.single("file"), async (req, res) => {
   // added /back/upload ?
-  const newPost = new Post(req.body);
+  const post = { ...req.body };
+  if (req.file) post.img = req.file.filename
+  const newPost = new Post(post); //from 2 lines up
   try {
     const savedPost = await newPost.save();
     res.status(200).json(savedPost);
@@ -15,7 +18,7 @@ router.post("/api/back/upload", async (req, res) => {
 });
 
 //update post
-router.put("/api/:id", async (req, res) => {
+router.put("/:id", async (req, res) => {
   //:id to verify user
   try {
     const post = await Post.findById(req.params.id);
@@ -32,7 +35,7 @@ router.put("/api/:id", async (req, res) => {
 });
 
 //delete a post
-router.delete("/api/:id", async (req, res) => {
+router.delete("/:id", async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
     if (post.userId === req.body.userId) {
@@ -47,7 +50,7 @@ router.delete("/api/:id", async (req, res) => {
 });
 
 //like / dislike a post
-router.put("/api/:id/like", async (req, res) => {
+router.put("/:id/like", async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
     if (!post.likes.includes(req.body.userId)) {
@@ -64,9 +67,9 @@ router.put("/api/:id/like", async (req, res) => {
 });
 
 //get a post
-router.get("/api/id", async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
-    const post = await Post.findById(req.params.id);
+    const post = await Post.findByPk(req.params.id);
     res.status(200).json(post);
   } catch (err) {
     res.status(500).json(err);
@@ -74,13 +77,15 @@ router.get("/api/id", async (req, res) => {
 });
 
 //get timeline posts
-router.get("/api/post/timeline/:userId", async (req, res) => {
-
-  const currentUser = await User.findById(req.params.userId);
-  const userPosts = await Post.find({ userId: currentUser.id }); //finds all posts from this userId, as defined in post model
+router.get("/timeline/:userId", async (req, res) => {
+  const currentUser = await User.findByPk(req.params.userId);
+  const userPosts = await Post.findAll({ where: { userId: currentUser.id } }); //finds all posts from this userId, as defined in post model
+  if (!currentUser.followings && !JSON.parse(currentUser.followings).length) {
+    return res.status(200).json(userPosts);
+  }
   const friendPosts = await Promise.all(
-    currentUser.followings.map((friendId) => {
-      return Post.find({ userId: friendId });
+    JSON.parse(currentUser.followings).map((friendId) => {
+      return Post.findAll({ where: { userId: friendId } });
     })
   );
   res.status(200).json(userPosts.concat(...friendPosts)); //take all friendPosts and concat with this post....what is concat?
@@ -90,7 +95,7 @@ router.get("/api/post/timeline/:userId", async (req, res) => {
 });
 
 //get all user's posts
-router.get("/api/profile/:username", async (req, res) => {
+router.get("/profile/:username", async (req, res) => {
   try {
     const user = await User.findOne({ username: req.params.username });
     const posts = await Post.find({ userId: user.id });

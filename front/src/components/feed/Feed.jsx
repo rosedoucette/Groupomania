@@ -26,12 +26,12 @@ export default function Feed({ username }) {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        // if (!user) {
-        //   throw new Error();
-        // }
+        if (!user) {
+          throw new Error("User not available");
+        }
         const res = username
-          ? await axios.get("//localhost:3000/posts/profile/" + user?.username)
-          : await axios.get("//localhost:3000/posts/timeline/" + user?.id);
+          ? await axios.get("//localhost:3000/api/post/profile/" + user?.username)
+          : await axios.get("//localhost:3000/api/post/timeline/" + user?.id);
         setPosts(
           res.data.sort((p1, p2) => {
             return new Date(p2.createdAt) - new Date(p1.createdAt); //sorts the posts by date/time, newest first then older ones after

@@ -17,21 +17,19 @@ export default function Share() {
       desc: desc.current.value, //using this current value bc desc is a useRef item as defined above
     };
     const data = new FormData();
+    data.append("userId", user.id);
+    data.append("desc", desc.current.value);
     if (file) {
       const fileName = Date.now() + file.name; //gives each img an individual name using date and numbers. ex. 122434img.png or 543221img.png
-      data.append("file", file);
       data.append("name", fileName);
+      data.append("file", file);
       newPost.img = fileName; //for newPost img you will indicate the file name/identifier using fileName
     }
     try {
-      await axios.post("//localhost:3000/api/back/upload", data); //referencing the "/back/upload" from post request from back/index.js
+      await axios.post("//localhost:3000/api/post/back/upload", data); //referencing the "/back/upload" from post request from back/index.js
     } catch (err) {
       // console.log(err);
     }
-    try {
-      await axios.post("//localhost:3000/api/post", newPost);
-      window.location.reload(); //this should refresh the page after adding a new post to the timeline
-    } catch (err) {}
   };
   if (!user) {
     return null;
