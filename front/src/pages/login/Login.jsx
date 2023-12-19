@@ -24,6 +24,11 @@ export default function Login() {
       dispatch
     );
   };
+
+  const handleRegisterClick = () => {
+    navigate("/register");
+  }
+
   return (
     <div className="login">
       <div className="loginWrapper">
@@ -59,7 +64,8 @@ export default function Login() {
               Log In
             </button>
             <span className="loginForgot">Forgot Password?</span>
-            <button className="loginRegisterButton">
+            <button className="loginRegisterButton"
+            onClick={handleRegisterClick}>
               Create a New Account
               {/* {isFetching ? <CircularProgress color="white" size="20px" /> : "Create a New Account"} */}
             </button>

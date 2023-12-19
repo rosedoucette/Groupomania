@@ -2,15 +2,17 @@ import React, { useContext } from "react";
 import "./register.css";
 import { useRef } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router";
 import { redirect } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export default function Register() {
   const username = useRef();
   const email = useRef();
   const password = useRef();
   const passwordAgain = useRef();
+  const from = useRef ();
+  const position = useRef ();
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
   if (user) {
@@ -30,6 +32,8 @@ export default function Register() {
         username: username.current.value,
         email: email.current.value,
         password: password.current.value,
+        from: from.current.value,
+        position: position.current.value,
       };
       try {
         await axios.post(
@@ -41,6 +45,10 @@ export default function Register() {
         console.log(err);
       }
     }
+  };
+
+  const handleLoginClick = () => {
+    navigate("/login"); //Redirect to login page
   };
 
   return (
@@ -86,10 +94,26 @@ export default function Register() {
               className="loginInput"
               type="password"
             />
+            <input
+              placeholder="Where are you from?"
+              required
+              ref={from}
+              className="loginInput"
+              type="text"
+            />
+            <input
+              placeholder="Position"
+              required
+              ref={position}
+              className="loginInput"
+              type="text"
+            />
             <button className="loginButton" type="submit">
               Sign Up
             </button>
-            <button className="loginRegisterButton">
+            <button className="loginRegisterButton"
+            onClick={handleLoginClick}> 
+            {/* Adds click handler for login */}
               Login to your Account
             </button>
           </form>

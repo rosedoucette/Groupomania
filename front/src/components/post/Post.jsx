@@ -34,13 +34,14 @@ export default function Post({ post }) {
     fetchUser();
   }, [post.userId]);
 
-  const likeHandler = () => {
+  const likeHandler = async () => {
     try {
-      axios.put("//localhost:3000/api/post/" + post.id + "/like", { userId: currentUser.id });
-    } catch (err) {}
-    setLike(isLiked ? like - 1 : like + 1);
+      await axios.put("//localhost:3000/api/post/" + post.id + "/like", { userId: currentUser.id });
+    setLike((prev) => (isLiked ? prev - 1 : prev + 1)); //Update like count based on previous state
     setIsLiked(!isLiked);
-    // the logic states that if a post hasn't been liked, it will add a like when clicked. If it has been liked already, it will subtract a like when clicked//
+  } catch (err) {
+    console.error("Error updating post like:", err)
+  } 
   };
   return (
     <div className="post">
