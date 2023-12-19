@@ -19,8 +19,11 @@ export default function Post({ post }) {
   const { user: currentUser } = useContext(AuthContext);
 
   useEffect(() => {
-    setIsLiked(post.likes.includes(currentUser.id)); //_id to id
-  }, [currentUser.id, post.likes]);
+    setIsLiked(post.likes && post.likes.includes(currentUser.id)); //_id to id
+  }, 
+  // This modification checks if post.likes is truthy (not null or undefined) before attempting to use includes. 
+  // If post.likes is not defined, it won't attempt to execute includes, avoiding the TypeError.
+  [currentUser.id, post.likes]);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -44,14 +47,14 @@ export default function Post({ post }) {
       <div className="postWrapper">
         <div className="postTop">
           <div className="postTopLeft">
-            <Link to={`//localhost:3000/api/profile/${user.username}`}>
+            <Link to={`/profile/${user?.username}`}>
               {/* Link should allow click on profile img to link to profile page */}
               <img
                 className="postProfileImg"
                 src={
                   user.profilePicture
                     ? PF + user.profilePicture
-                    : PF + "/profiles/avatar.png"
+                    : PF + "avatar.png"
                 } //use profile pic?... :if no profile pic, use avatar photo
                 alt=""
               />
@@ -85,7 +88,10 @@ export default function Post({ post }) {
               alt=""
             />
             {/* img src changed to accomodate PF (public folder) accommodations */}
-            <span className="postLikeCounter">{post.likes.length}</span>
+            <span className="postLikeCounter">{post.likes ? post.likes.length: 0}</span>
+          {/* This code checks if post.likes is truthy (not null or undefined). 
+          If it is truthy, it accesses post.likes.length; otherwise, it defaults to 0. 
+          This way, you won't encounter the error when post.likes is not defined. */}
           </div>
           <div className="postBottomRight">
             <span className="postCommentText">Comments: {post.comment}</span>

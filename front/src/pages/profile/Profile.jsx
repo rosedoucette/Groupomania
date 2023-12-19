@@ -51,7 +51,7 @@ export default function Profile() {
 
   useEffect(() => {
     if (!loading && !user) {
-      debugger;
+      // debugger;
       navigate("/login");
     }
   }, [loading, user]);

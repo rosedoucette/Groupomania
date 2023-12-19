@@ -48,7 +48,7 @@ router.get("/", async (req, res) => {
     console.log(userId);
     
         const user = userId
-            ? await User.findById(userId) //if user has userId
+            ? await User.findByPk(userId) //if user has userId
             : await User.findOne({where:{ username: username }}).catch((e)=>{
                 console.log(e)
             }); //if user has username 

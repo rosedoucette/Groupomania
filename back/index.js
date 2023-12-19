@@ -8,7 +8,6 @@ const morgan = require("morgan");
 const userRoute = require("./routes/users");
 const authRoute = require("./routes/auth");
 const postRoute = require("./routes/post");
-const multer = require("multer");
 const path = require("path");
 
 dotenv.config();
@@ -54,16 +53,7 @@ app.use(express.json()); //body parser for making requests
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(morgan("dev")); //changed common to dev
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, "public/images/")); //ensures you provide an absolute path for the image upload destination
-  },
-  filename: (req, file, cb) => {
-    cb(null, req.body.name); //referencing data.append"name" from Share.jsx
-  },
-});
 
-const upload = multer({ storage });
 // app.post("/api/back/upload", upload.single("file"), (req, res) => {
 //   try {
 //     console.log(req.file); //who is uploading the pic.

@@ -80,7 +80,7 @@ router.get("/:id", async (req, res) => {
 router.get("/timeline/:userId", async (req, res) => {
   const currentUser = await User.findByPk(req.params.userId);
   const userPosts = await Post.findAll({ where: { userId: currentUser.id } }); //finds all posts from this userId, as defined in post model
-  if (!currentUser.followings && !JSON.parse(currentUser.followings).length) {
+  if (!currentUser.followings || !JSON.parse(currentUser.followings).length) {
     return res.status(200).json(userPosts);
   }
   const friendPosts = await Promise.all(
