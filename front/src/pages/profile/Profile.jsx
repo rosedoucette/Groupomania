@@ -131,7 +131,8 @@ console.log(user);
             </div>
           </div>
           <div className="profileRightBottom">
-            <Feed username="username" />
+            <Feed /> 
+            {/* was <Feed username="username" /> */}
             <Rightbar user={user} />
           </div>
         </div>
