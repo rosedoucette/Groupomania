@@ -14,21 +14,27 @@ export default function Post({ post }) {
   // inside useState, the post.likes references the inital state, so the number from the dummy data//
   const [isLiked, setIsLiked] = useState(false);
   // inside useState, the false references the inital state, as the post hasn't been liked yet//
-  const [user] = useState({}); //removed setUser
+  const [user, setUser] = useState({}); //removed setUser
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const { user: currentUser } = useContext(AuthContext);
 
-  useEffect(() => {
-    setIsLiked(post.likes && post.likes.includes(currentUser.id)); //_id to id
-  }, 
-  // This modification checks if post.likes is truthy (not null or undefined) before attempting to use includes. 
-  // If post.likes is not defined, it won't attempt to execute includes, avoiding the TypeError.
-  [currentUser.id, post.likes]);
+  useEffect(
+    () => {
+      setIsLiked(post.likes && post.likes.includes(currentUser.id)); //_id to id
+    },
+    // This modification checks if post.likes is truthy (not null or undefined) before attempting to use includes.
+    // If post.likes is not defined, it won't attempt to execute includes, avoiding the TypeError.
+    [currentUser.id, post.likes]
+  );
 
   useEffect(() => {
     const fetchUser = async () => {
-      const res = await axios.get(`//localhost:3000/api/users?userId=${post.userId}`);
-      // setPosts(res.data)
+      const res = await axios
+        .get(`//localhost:3000/api/users?userId=${post.userId}`)
+        // setPosts(res.data)
+        .catch(() => {});
+      setUser(res.data);
+
       console.log(res);
     };
     fetchUser();
@@ -36,12 +42,14 @@ export default function Post({ post }) {
 
   const likeHandler = async () => {
     try {
-      await axios.put("//localhost:3000/api/post/" + post.id + "/like", { userId: currentUser.id });
-    setLike((prev) => (isLiked ? prev - 1 : prev + 1)); //Update like count based on previous state
-    setIsLiked(!isLiked);
-  } catch (err) {
-    console.error("Error updating post like:", err)
-  } 
+      await axios.put("//localhost:3000/api/post/" + post.id + "/like", {
+        userId: currentUser.id,
+      });
+      setLike((prev) => (isLiked ? prev - 1 : prev + 1)); //Update like count based on previous state
+      setIsLiked(!isLiked);
+    } catch (err) {
+      console.error("Error updating post like:", err);
+    }
   };
   return (
     <div className="post">
@@ -63,7 +71,7 @@ export default function Post({ post }) {
             </Link>
             <span className="postUserName">{user.username}</span>
             {/* why such a long about way of finding user Id? */}
-            <span className="postDate">{buildFormatter(post.createdAt)}</span>
+            {/* <span className="postDate">{buildFormatter(post.createdAt)}</span> */}
             {/* createdAt needs to be added to table */}
           </div>
           <div className="postTopRight"></div>
@@ -89,8 +97,10 @@ export default function Post({ post }) {
               alt=""
             />
             {/* img src changed to accomodate PF (public folder) accommodations */}
-            <span className="postLikeCounter">{post.likes ? post.likes.length: 0}</span>
-          {/* This code checks if post.likes is truthy (not null or undefined). 
+            <span className="postLikeCounter">
+              {post.likes ? post.likes.length : 0}
+            </span>
+            {/* This code checks if post.likes is truthy (not null or undefined). 
           If it is truthy, it accesses post.likes.length; otherwise, it defaults to 0. 
           This way, you won't encounter the error when post.likes is not defined. */}
           </div>

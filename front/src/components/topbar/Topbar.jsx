@@ -26,7 +26,7 @@ export default function Topbar() {
   const handleDeleteAccount = async () => {
     try {
       // Make a delete request using Axios
-      const response = await axios.delete(`https://localhost:3000/api/users/${user._id}`, {
+      const response = await axios.delete(`//localhost:3000/api/users/${user.id}`, {
         headers: {
           Authorization: `Bearer ${process.env.REACT_APP_YOUR_AUTH_TOKEN}`, // Replace with your actual authentication token
         },

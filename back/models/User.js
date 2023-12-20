@@ -47,10 +47,13 @@ const User = sequelize.define(
     from: {
       type: DataTypes.STRING, //took out max:50
     },
-    relationship: {
-      type: DataTypes.NUMBER,
-      enum: [1, 2, 3], //1 single, 2 married, etc.
+    position: {
+      type: DataTypes.STRING,
     },
+    seenPosts: {
+      type: DataTypes.STRING,
+      default: "[]",
+    }
   },
   { timestamps: true } //declare createdAt: CreationOptional<Date>; or updateAt;
 );

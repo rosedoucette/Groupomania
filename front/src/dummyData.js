@@ -76,7 +76,7 @@ export const Posts = [
         desc: "except you guys, I like all of you",
         photo: "posts/5.png",
         date: "58 mins ago",
-        userId: 7,
+        userId: 3,
         likes: 17,
         comment: 12,
     },

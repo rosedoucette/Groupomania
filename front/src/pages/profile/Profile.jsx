@@ -24,17 +24,18 @@ export function ProfilePictureUpload({ setProfileUserImg }) {
     }
   };
 
-  return (
-    <div>
-      <input
-        type="file"
-        id="profilePictureInput"
-        accept="image/*"
-        onChange={handleFileChange}
-      />
-      {/* add button to submit img in the profile component. here do the axios */}
-    </div>
-  );
+  //PROFILE PICTURE UPLOAD:
+  // return (
+  //   <div>
+  //     <input
+  //       type="file"
+  //       id="profilePictureInput"
+  //       accept="image/*"
+  //       onChange={handleFileChange}
+  //     />
+  //     {/* add button to submit img in the profile component. here do the axios */}
+  //   </div>
+  // );
 }
 
 export default function Profile() {

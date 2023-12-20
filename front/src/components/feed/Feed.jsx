@@ -31,7 +31,7 @@ export default function Feed({ username }) {
         }
         const res = username
           ? await axios.get("//localhost:3000/api/post/profile/" + user?.username)
-          : await axios.get("//localhost:3000/api/post/timeline/" + user?.id);
+          : await axios.get("//localhost:3000/api/post/");
         setPosts(
           res.data.sort((p1, p2) => {
             return new Date(p2.createdAt) - new Date(p1.createdAt); //sorts the posts by date/time, newest first then older ones after
