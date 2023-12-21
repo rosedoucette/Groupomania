@@ -51,6 +51,56 @@ export default function Post({ post }) {
       console.error("Error updating post like:", err);
     }
   };
+
+//   const handlePostClick = async () => {
+//     const updatedUser = axios.post("//localhost:3000/api/users/${user.id}/${post.id}", {
+//       headers: {(Auth token header)} //what?
+//     }).then((res) => {
+//       //functionality to update user in authContext with res.data, if user is being brought in from server
+//     }).catch(() => {console.error("Couldn't mark as viewed");})
+//   };
+
+//   const Post = ({post}) => {
+//     const activeUser = //get signed in user from react Context
+//     const [isViewed, setIsViewed] = useState(activeUser?.seenPosts?.includes(post.id)); //will be true or false
+//       // if the post is not viewed and then becomes viewed we need to update "isViewed"
+//   useEffect(() => {
+//     // if the active user exists, and seenPosts is an array, and that array does not include the post.id
+//     if (activeUser && Array.isArray(activeUser.seenPosts) && !activeUser.seenPosts.includes(post.id)) {
+//         setIsViewed(true);
+//     }
+//  }, [activeUser]); // ideally react will realize when the user changes in the Context and trigger this
+
+//  // the rest of your Post component code
+//   };
+
+const Post = ({ post }) => {
+  const activeUser = ;// Get signed-in user from react Context
+  const [isViewed, setIsViewed] = useState(activeUser?.seenPosts?.includes(post.id));
+
+  const handlePostClick = async () => {
+    try {
+      const response = await axios.post(`//localhost:3000/api/users/${activeUser.id}/${post.id}`);
+      const updatedUser = response.data;
+
+      // Assuming you have a function to update user in authContext
+      // You can use it to update the user with the new data
+      // updateAuthUser(updatedUser);
+      setIsViewed(true);
+    } catch (error) {
+      console.error("Couldn't mark as viewed", error);
+    }
+  };
+
+  useEffect(() => {
+    // Check if the post is in the seenPosts array
+    if (activeUser && Array.isArray(activeUser.seenPosts) && activeUser.seenPosts.includes(post.id)) {
+      setIsViewed(true);
+    }
+  }, [activeUser, post.id]);
+
+
+
   return (
     <div className="post">
       <div className="postWrapper">
@@ -75,6 +125,7 @@ export default function Post({ post }) {
             {/* createdAt needs to be added to table */}
           </div>
           <div className="postTopRight"></div>
+          <button onClick={handlePostClick}>Mark as Viewed</button>
           <FaEllipsisV />
         </div>
         <div className="postCenter">

@@ -120,4 +120,44 @@ router.put("/:id/unfollow", async (req, res) => {
   }
 });
 
+//from conor:
+router.post("/:userId/:postId", async (req, res) => {
+  const user = await User.findByPk(req.params.userId);
+  const seenPosts = JSON.parse(user.seenPosts || "[]").push(req.params.postId);
+  user.seenPosts = JSON.stringify(seenPosts);
+  user
+    .save()
+    .then(() => {
+      return res.status(201).json(user);
+    })
+    .catch(() => {
+      return res
+        .status(500)
+        .json("something went wrong updating seenPosts on the user");
+    });
+});
+
+//From robot:
+// router.post("/:userId/:postId", async (req, res) => {
+//   try {
+//     const user = await User.findByPk(req.params.userId);
+//     let seenPosts = JSON.parse(user.seenPosts || "[]");
+    
+//     // Check if the post is already in the seenPosts array
+//     if (!seenPosts.includes(req.params.postId)) {
+//       seenPosts.push(req.params.postId);
+//       user.seenPosts = JSON.stringify(seenPosts);
+      
+//       await user.save();
+      
+//       return res.status(201).json(user);
+//     } else {
+//       return res.status(400).json("Post already marked as seen");
+//     }
+//   } catch (error) {
+//     console.error("Error updating seenPosts on the user:", error);
+//     return res.status(500).json("Something went wrong updating seenPosts on the user");
+//   }
+// });
+
 module.exports = router;
