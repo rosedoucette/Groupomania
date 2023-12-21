@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useContext } from "react";
 import "./post.css";
 // import { users } from "../../dummyData";
-import buildFormatter from "react-timeago/lib/formatters/buildFormatter";
+// import buildFormatter from "react-timeago/lib/formatters/buildFormatter";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import axios from "axios";
 import { FaEllipsisV } from "react-icons/fa";
 
 export default function Post({ post }) {
-  console.log(post);
+  // console.log(post);
 
-  const [like, setLike] = useState(post.likes);
+  const [setLike] = useState(post.likes); //removed like
   // inside useState, the post.likes references the inital state, so the number from the dummy data//
   const [isLiked, setIsLiked] = useState(false);
   // inside useState, the false references the inital state, as the post hasn't been liked yet//
@@ -35,7 +35,7 @@ export default function Post({ post }) {
         .catch(() => {});
       setUser(res.data);
 
-      console.log(res);
+      // console.log(res);
     };
     fetchUser();
   }, [post.userId]);
@@ -97,15 +97,15 @@ export default function Post({ post }) {
               alt=""
             />
             {/* img src changed to accomodate PF (public folder) accommodations */}
-            <span className="postLikeCounter">
+            {/* <span className="postLikeCounter">
               {post.likes ? post.likes.length : 0}
-            </span>
+            </span> */}
             {/* This code checks if post.likes is truthy (not null or undefined). 
           If it is truthy, it accesses post.likes.length; otherwise, it defaults to 0. 
           This way, you won't encounter the error when post.likes is not defined. */}
           </div>
           <div className="postBottomRight">
-            <span className="postCommentText">Comments: {post.comment}</span>
+            <span className="postCommentText">Comments  {post.comment}</span>
           </div>
         </div>
       </div>

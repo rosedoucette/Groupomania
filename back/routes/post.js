@@ -21,7 +21,7 @@ router.post("/back/upload", upload.single("file"), async (req, res) => {
 router.put("/:id", async (req, res) => {
   //:id to verify user
   try {
-    const post = await Post.findById(req.params.id);
+    const post = await Post.findByPk(req.params.id);
     if (post.userId === req.body.userId) {
       //making user user id is the same
       await post.updateOne({ $set: req.body });
@@ -37,7 +37,7 @@ router.put("/:id", async (req, res) => {
 //delete a post
 router.delete("/:id", async (req, res) => {
   try {
-    const post = await Post.findById(req.params.id);
+    const post = await Post.findByPk(req.params.id);
     if (post.userId === req.body.userId) {
       await post.deleteOne();
       res.status(200).json("the post has been deleted");
@@ -53,7 +53,7 @@ router.delete("/:id", async (req, res) => {
 router.put("/:id/like", async (req, res) => {
   console.log("Request Payload:", req.body);
   try {
-    const post = await Post.findById(req.params.id);
+    const post = await Post.findByPk(req.params.id);
     if (!post.likes.includes(req.body.userId)) {
       //if the post.likes includes the userId, it will like this post
       await post.updateOne({ $push: { likes: req.body.userId } });
