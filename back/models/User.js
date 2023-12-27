@@ -20,23 +20,23 @@ const User = sequelize.define(
     },
     profilePicture: {
       type: DataTypes.STRING,
-      default: "",
+      defaultValue: "",
     },
     coverPicture: {
       type: DataTypes.STRING,
-      default: "",
+      defaultValue: "",
     },
     followers: {
       type: DataTypes.STRING, //will save to localStorage this way
-      default: "[]",
+      defaultValue: "[]",
     },
     followings: {
       type: DataTypes.STRING,
-      default: "[]",
+      defaultValue: "[]",
     },
     isAdmin: {
       type: DataTypes.BOOLEAN,
-      default: false,
+      defaultValue: false,
     },
     desc: {
       type: DataTypes.STRING, //took out max:50
@@ -52,7 +52,7 @@ const User = sequelize.define(
     },
     seenPosts: {
       type: DataTypes.STRING,
-      default: "[]",
+      defaultValue: "[]",
     }
   },
   { timestamps: true } //declare createdAt: CreationOptional<Date>; or updateAt;

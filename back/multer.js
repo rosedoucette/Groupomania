@@ -6,8 +6,7 @@ const storage = multer.diskStorage({
     cb(null, path.join(__dirname, "public/images/")); //ensures you provide an absolute path for the image upload destination
   },
   filename: (req, file, cb) => {
-    console.log(req.body);
-    cb(null, req.body.name); //referencing data.append"name" from Share.jsx
+    cb(null, `${Date.now()}-req.body.name`); //referencing data.append"name" from Share.jsx
   },
 });
 

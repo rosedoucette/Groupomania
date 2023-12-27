@@ -61,10 +61,10 @@ export default function Topbar() {
         <input placeholder="Search for friends, posts, or video" className="searchInput" />
       </div>
       <div className="topbarRight"></div>
-      <div className="topbarLinks">
-        <span className="topbarLink">Homepage</span>
+      {/* <div className="topbarLinks">
+        <span className="topbarLink"> <Link to="/" style={{ textDecoration: "none" }}>Homepage</Link></span>
         <span className="topbarLink">Timeline</span>
-      </div>
+      </div> */}
       <div className="topbarIcons">
         <div className="topbarIconItem">
           <FaUser />

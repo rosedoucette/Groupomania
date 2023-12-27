@@ -63,6 +63,7 @@
     margin-right: 10px;
     font-style: 14px;
     cursor: pointer;
+    text-decoration: none;
 }
 
 .topbarIcons{
@@ -76,14 +77,14 @@
 }
 
 .topbarIconBadge{
-    width: 15px;
-    height: 15px;
-    background-color: red;
+    width: 12px;
+    height: 12px;
+    background-color: rgb(218, 218, 218);
     border-radius: 50%;
     flood-color: white;
     position: absolute;
-    top: -5px;
-    right: -5px;
+    top: -6px;
+    right: -6px;
     display: flex;
     align-items: center;
     justify-content: center;

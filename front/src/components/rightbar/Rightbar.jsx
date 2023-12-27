@@ -12,7 +12,7 @@ export default function Rightbar({ user }) {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [friends, setFriends] = useState([]);
   const { user: currentUser } = useContext(AuthContext); //removed , dispatch
-  const [ setFollowed] = useState(false); //removed followed,
+  const [ followed, setFollowed] = useState(false); //removed followed,
   //took out:
   // (currentUser.followings.includes(user?.id));
   //? is called optional chaining
@@ -25,17 +25,17 @@ export default function Rightbar({ user }) {
     }
   }, [currentUser, user]); //user instead of user.id
 
-  useEffect(() => {
-    const getFriends = async () => {
-      try {
-        const friendList = await axios.get("//localhost:3000/api/users/friend/" + user.id); //going to use user from above, take the id from this line, and fetch all friends
-        setFriends(friendList.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getFriends();
-  }, [user]); //whatever goes inside the array here is called the dependency
+  // useEffect(() => {
+  //   const getFriends = async () => {
+  //     try {
+  //       const friendList = await axios.get("//localhost:3000/api/users/friend/" + user.id); //going to use user from above, take the id from this line, and fetch all friends
+  //       setFriends(friendList.data);
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   };
+  //   getFriends();
+  // }, [user]); //whatever goes inside the array here is called the dependency
 
   //FOR FOLLOWS AND UNFOLLOWS:
   // const handleClick = async () => {

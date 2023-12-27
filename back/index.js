@@ -5,6 +5,7 @@ const { Sequelize } = require("sequelize");
 const dotenv = require("dotenv");
 const helmet = require("helmet");
 const morgan = require("morgan");
+const upload = require("./multer");
 const userRoute = require("./routes/users");
 const authRoute = require("./routes/auth");
 const postRoute = require("./routes/post");
@@ -53,10 +54,12 @@ app.use(express.json()); //body parser for making requests
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(morgan("dev")); //changed common to dev
 
-
-// app.post("/api/back/upload", upload.single("file"), (req, res) => {
+//file upload route
+// app.post("/api/back/upload", upload.single("profilePicture"), (req, res) => {
 //   try {
-//     console.log(req.file); //who is uploading the pic.
+//     console.log(req.file); 
+//     // Handle fiel upload - save file path to user in database
+//     //who is uploading the pic.
 //     // so the pic and username are linked.
 //     // Grab user from database so it knows who's profile picture is uploaded
 //     // Grab the user. update the user with profile pic.

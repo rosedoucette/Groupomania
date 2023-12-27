@@ -1,15 +1,17 @@
 const router = require("express").Router();
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
+const upload = require("../multer");
 
 //REGISTER
-router.post("/register", async (req, res) => {
+router.post("/register", upload.single("profilePicture"), async (req, res) => {
   try {
     //generate new password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
     //create new user
+    console.log(req.file);
     const newUser = new User({
       ...req.body, //spreading - pulling in all the properties of the object, like below email, from, etc.
       // username: req.body.username,
@@ -17,6 +19,7 @@ router.post("/register", async (req, res) => {
       password: hashedPassword,
       // from: req.body.from,
       // position: req.body.position,
+      profilePicture: req.file.filename,
     });
 
     //save user and respond

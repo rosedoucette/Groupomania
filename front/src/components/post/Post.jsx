@@ -33,7 +33,7 @@ export default function Post({ post }) {
         .get(`//localhost:3000/api/users?userId=${post.userId}`)
         // setPosts(res.data)
         .catch(() => {});
-      setUser(res.data);
+      setUser(res);
 
       // console.log(res);
     };
@@ -74,33 +74,6 @@ export default function Post({ post }) {
 //  // the rest of your Post component code
 //   };
 
-const Post = ({ post }) => {
-  const activeUser = ;// Get signed-in user from react Context
-  const [isViewed, setIsViewed] = useState(activeUser?.seenPosts?.includes(post.id));
-
-  const handlePostClick = async () => {
-    try {
-      const response = await axios.post(`//localhost:3000/api/users/${activeUser.id}/${post.id}`);
-      const updatedUser = response.data;
-
-      // Assuming you have a function to update user in authContext
-      // You can use it to update the user with the new data
-      // updateAuthUser(updatedUser);
-      setIsViewed(true);
-    } catch (error) {
-      console.error("Couldn't mark as viewed", error);
-    }
-  };
-
-  useEffect(() => {
-    // Check if the post is in the seenPosts array
-    if (activeUser && Array.isArray(activeUser.seenPosts) && activeUser.seenPosts.includes(post.id)) {
-      setIsViewed(true);
-    }
-  }, [activeUser, post.id]);
-
-
-
   return (
     <div className="post">
       <div className="postWrapper">
@@ -125,7 +98,6 @@ const Post = ({ post }) => {
             {/* createdAt needs to be added to table */}
           </div>
           <div className="postTopRight"></div>
-          <button onClick={handlePostClick}>Mark as Viewed</button>
           <FaEllipsisV />
         </div>
         <div className="postCenter">
@@ -141,12 +113,12 @@ const Post = ({ post }) => {
               onClick={likeHandler}
               alt=""
             />
-            <img
+            {/* <img
               className="likeIcon"
               src={`${PF}heart.png`}
               onClick={likeHandler}
               alt=""
-            />
+            /> */}
             {/* img src changed to accomodate PF (public folder) accommodations */}
             {/* <span className="postLikeCounter">
               {post.likes ? post.likes.length : 0}
@@ -156,7 +128,7 @@ const Post = ({ post }) => {
           This way, you won't encounter the error when post.likes is not defined. */}
           </div>
           <div className="postBottomRight">
-            <span className="postCommentText">Comments  {post.comment}</span>
+            <span className="postCommentText">Comments: {post.comment}</span>
           </div>
         </div>
       </div>
