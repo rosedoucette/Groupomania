@@ -87,7 +87,7 @@ export default function Post({ post }) {
                   user.profilePicture
                     ? PF + user.profilePicture
                     : PF + "avatar.png"
-                } //use profile pic?... :if no profile pic, use avatar photo
+                }
                 alt=""
               />
               {/* Such a long about way of finding the profile pic as well */}

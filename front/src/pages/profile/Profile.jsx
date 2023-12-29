@@ -11,32 +11,6 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { useContext } from "react";
 
-export function ProfilePictureUpload({ setProfileUserImg }) {
-  const handleFileChange = (e) => {
-    const fileInput = e.target;
-
-    if (fileInput.files && fileInput.files[0]) {
-      // const reader = new FileReader();
-
-      // reader.onload = (e) => {
-      setProfileUserImg(fileInput.files[0]);
-      // };
-    }
-  };
-
-  //PROFILE PICTURE UPLOAD:
-  // return (
-  //   <div>
-  //     <input
-  //       type="file"
-  //       id="profilePictureInput"
-  //       accept="image/*"
-  //       onChange={handleFileChange}
-  //     />
-  //     {/* add button to submit img in the profile component. here do the axios */}
-  //   </div>
-  // );
-}
 
 export default function Profile() {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
@@ -46,7 +20,6 @@ export default function Profile() {
     (currentUser && currentUser.username === username && currentUser) || null
   ); // if user and current user is the same as the one in the url, then just use the current user that's in context
   const [loading, setLoading] = useState(user ? false : true); //if current user is null, then no one is logged in/not the person who did log in
-  const [ setProfileUserImg] = useState(null); //removed profileUserImg,
   // console.log(user);
   const navigate = useNavigate();
 
@@ -97,34 +70,13 @@ console.log(user);
               <img
                 className="profileUserImg"
                 src={
-                  user.coverPicture
-                    ? PF + user.coverPicture
-                    : PF + "/avatar.png"
+                  user.profilePicture
+                    ? PF + user.profilePicture
+                    : PF + "avatar.png"
                 } //removed {`${PF}profiles/Profile1.png`} from both
                 alt=""
               />
-              <ProfilePictureUpload setProfileUserImg={setProfileUserImg} />
-              {/* <script>
-    Function to handle file selection and update profileUserImg
-    document.getElementById('profilePictureInput').addEventListener('change', function (e) {
-        var fileInput = e.target;
-        var profileUserImg = document.getElementById('profileUserImg');
-
-        // Check if a file is selected
-        if (fileInput.files && fileInput.files[0]) {
-            var reader = new FileReader();
-
-            // Set up the reader to load the selected image
-            reader.onload = function (e) {
-                // Update the src attribute of profileUserImg
-                profileUserImg.src = e.target.result;
-            };
-
-            // Read the selected file as a data URL
-            reader.readAsDataURL(fileInput.files[0]);
-        }
-    });
-</script> */}
+          
             </div>
             <div className="profileInfo">
               <h4 className="profileInfoName">{user.username}</h4>

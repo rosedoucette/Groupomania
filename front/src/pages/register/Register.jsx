@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import "./register.css";
 import { useRef } from "react";
 import axios from "axios";
@@ -117,6 +117,9 @@ export default function Register() {
               className="loginInput"
               type="text"
             />
+            <label className="fileInputLabel" htmlFor="profilePicture">
+              Choose Profile Picture:
+            </label>
             <input
               type="file"
               placeholder="Profile Picture"

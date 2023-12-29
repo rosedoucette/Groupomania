@@ -40,6 +40,11 @@
     justify-content: space-between;
 }
 
+.fileInputLabel {
+    display: block;
+    margin-bottom: 10px;
+  }
+
 .loginInput{
     height: 50px;
     border-radius: 10px;
