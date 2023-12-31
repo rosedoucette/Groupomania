@@ -121,12 +121,17 @@ router.put("/:id/unfollow", async (req, res) => {
 });
 
 //from conor:
-router.post("/:userId/:postId", async (req, res) => {
+router.post("/:userId/:postId", async (req, res) => { 
+  //this isn't the URL though, so how exactly would this work?
   const user = await User.findByPk(req.params.userId);
+  //pulls user from data table w/pk based on the userId parameter
   const seenPosts = JSON.parse(user.seenPosts || "[]").push(req.params.postId);
+  //either parses seenPosts string or initializes it as empty array if not present. Push returns new length of array, not updated array
   user.seenPosts = JSON.stringify(seenPosts);
+  //converts the updated seenPosts back to a JSON string and assigns that property to the user object
   user
     .save()
+    //saves updated user object to the database
     .then(() => {
       return res.status(201).json(user);
     })
@@ -135,29 +140,8 @@ router.post("/:userId/:postId", async (req, res) => {
         .status(500)
         .json("something went wrong updating seenPosts on the user");
     });
+    //handles the result of that save operation. success=201, error=500+message
 });
 
-//From robot:
-// router.post("/:userId/:postId", async (req, res) => {
-//   try {
-//     const user = await User.findByPk(req.params.userId);
-//     let seenPosts = JSON.parse(user.seenPosts || "[]");
-    
-//     // Check if the post is already in the seenPosts array
-//     if (!seenPosts.includes(req.params.postId)) {
-//       seenPosts.push(req.params.postId);
-//       user.seenPosts = JSON.stringify(seenPosts);
-      
-//       await user.save();
-      
-//       return res.status(201).json(user);
-//     } else {
-//       return res.status(400).json("Post already marked as seen");
-//     }
-//   } catch (error) {
-//     console.error("Error updating seenPosts on the user:", error);
-//     return res.status(500).json("Something went wrong updating seenPosts on the user");
-//   }
-// });
 
 module.exports = router;

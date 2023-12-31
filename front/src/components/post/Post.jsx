@@ -52,13 +52,13 @@ export default function Post({ post }) {
     }
   };
 
-//   const handlePostClick = async () => {
-//     const updatedUser = axios.post("//localhost:3000/api/users/${user.id}/${post.id}", {
-//       headers: {(Auth token header)} //what?
-//     }).then((res) => {
-//       //functionality to update user in authContext with res.data, if user is being brought in from server
-//     }).catch(() => {console.error("Couldn't mark as viewed");})
-//   };
+  const handlePostClick = async () => {
+    const updatedUser = axios.post("//localhost:3000/api/users/${user.id}/${post.id}", {
+      headers: {Authorization: `Bearer ${process.env.REACT_APP_YOUR_AUTH_TOKEN}`} //what?
+    }).then((res) => {
+      //functionality to update user in authContext with res.data, if user is being brought in from server
+    }).catch(() => {console.error("Couldn't mark as viewed");})
+  };
 
 //   const Post = ({post}) => {
 //     const activeUser = //get signed in user from react Context
@@ -70,8 +70,6 @@ export default function Post({ post }) {
 //         setIsViewed(true);
 //     }
 //  }, [activeUser]); // ideally react will realize when the user changes in the Context and trigger this
-
-//  // the rest of your Post component code
 //   };
 
   return (
@@ -97,7 +95,16 @@ export default function Post({ post }) {
             {/* <span className="postDate">{buildFormatter(post.createdAt)}</span> */}
             {/* createdAt needs to be added to table */}
           </div>
-          <div className="postTopRight"></div>
+          <div className="postTopRight">
+            {/* <label>
+              Seen 
+              <input
+              type="checkbox"
+              checked={isViewed}
+              onChange={handlePostClick}
+              />
+            </label> */}
+          </div>
           <FaEllipsisV />
         </div>
         <div className="postCenter">

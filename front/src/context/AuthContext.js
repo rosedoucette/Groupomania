@@ -2,7 +2,11 @@ import React, { createContext, useReducer } from "react";
 import AuthReducer from "./AuthReducer";
 
 const INITIAL_STATE = {
-  user: (null),
+  user: {
+    id: null, // You can add more user properties if needed
+    username: null,
+    seenPosts: [], // Add the seenPosts array
+  },
   isFetching: false,
   error: false,
 };

@@ -28,7 +28,7 @@ export default function Profile() {
       // debugger;
       navigate("/login");
     }
-  }, [loading, user]);
+  }, [loading, user, navigate]);
 
   useEffect(() => {
     if (!loading) return;
