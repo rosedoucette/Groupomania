@@ -16,7 +16,7 @@ export default function Post({ post }) {
   // inside useState, the false references the inital state, as the post hasn't been liked yet//
   const [user, setUser] = useState({}); //removed setUser
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
-  const { user: currentUser } = useContext(AuthContext);
+  const { user: currentUser, dispatch } = useContext(AuthContext);
 
   useEffect(
     () => {
@@ -53,28 +53,40 @@ export default function Post({ post }) {
   };
 
   const handlePostClick = async () => {
-    const updatedUser = axios.post("//localhost:3000/api/users/${user.id}/${post.id}", {
-      headers: {Authorization: `Bearer ${process.env.REACT_APP_YOUR_AUTH_TOKEN}`} //what?
-    }).then((res) => {
+    console.log(currentUser);
+    const updatedUser = await axios
+      .post(`//localhost:3000/api/users/${currentUser.id}/${post.id}`, {
+        headers: {
+          Authorization: `Bearer ${process.env.REACT_APP_YOUR_AUTH_TOKEN}`,
+        }, //what?
+      })
+      .then((res) => {
+        return res.data;
+        })
+      .catch(() => {
+        console.error("Couldn't mark as viewed");
+      });
+      dispatch({ type: "UPDATE_USER", payload: updatedUser });
       //functionality to update user in authContext with res.data, if user is being brought in from server
-    }).catch(() => {console.error("Couldn't mark as viewed");})
+      //state updating
   };
 
-//   const Post = ({post}) => {
-//     const activeUser = //get signed in user from react Context
-//     const [isViewed, setIsViewed] = useState(activeUser?.seenPosts?.includes(post.id)); //will be true or false
-//       // if the post is not viewed and then becomes viewed we need to update "isViewed"
-//   useEffect(() => {
-//     // if the active user exists, and seenPosts is an array, and that array does not include the post.id
-//     if (activeUser && Array.isArray(activeUser.seenPosts) && !activeUser.seenPosts.includes(post.id)) {
-//         setIsViewed(true);
-//     }
-//  }, [activeUser]); // ideally react will realize when the user changes in the Context and trigger this
-//   };
+  //   const Post = ({post}) => {
+  //     const activeUser = //get signed in user from react Context
+  //     const [isViewed, setIsViewed] = useState(activeUser?.seenPosts?.includes(post.id)); //will be true or false
+  //       // if the post is not viewed and then becomes viewed we need to update "isViewed"
+  //   useEffect(() => {
+  //     // if the active user exists, and seenPosts is an array, and that array does not include the post.id
+  //     if (activeUser && Array.isArray(activeUser.seenPosts) && !activeUser.seenPosts.includes(post.id)) {
+  //         setIsViewed(true);
+  //     }
+  //  }, [activeUser]); // ideally react will realize when the user changes in the Context and trigger this
+  //   };
 
+  console.log(currentUser.seenPosts)
   return (
     <div className="post">
-      <div className="postWrapper">
+      <a className="postWrapper" onClick={handlePostClick}>
         <div className="postTop">
           <div className="postTopLeft">
             <Link to={`/profile/${user?.username}`}>
@@ -96,14 +108,7 @@ export default function Post({ post }) {
             {/* createdAt needs to be added to table */}
           </div>
           <div className="postTopRight">
-            {/* <label>
-              Seen 
-              <input
-              type="checkbox"
-              checked={isViewed}
-              onChange={handlePostClick}
-              />
-            </label> */}
+           {currentUser.seenPosts.includes(post.id) && <span>Viewed</span>}
           </div>
           <FaEllipsisV />
         </div>
@@ -138,7 +143,7 @@ export default function Post({ post }) {
             <span className="postCommentText">Comments: {post.comment}</span>
           </div>
         </div>
-      </div>
+      </a>
     </div>
   );
 }
