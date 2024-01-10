@@ -75,7 +75,7 @@ export default function Share() {
                   style={{ color: "tomato" }}
                   className="ShareIcon"
                 />
-                <span className="shareOptionText">Photo or Video</span>
+                <span className="shareOptionText">Photo</span>
                 <input
                   style={{ display: "none" }}
                   type="file"
