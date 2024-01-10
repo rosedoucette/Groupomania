@@ -5,7 +5,7 @@ import "./post.css";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import axios from "axios";
-import { FaEllipsisV } from "react-icons/fa";
+import { FaCheck } from "react-icons/fa";
 
 export default function Post({ post }) {
   // console.log(post);
@@ -108,9 +108,8 @@ export default function Post({ post }) {
             {/* createdAt needs to be added to table */}
           </div>
           <div className="postTopRight">
-           {currentUser.seenPosts.includes(post.id) && <span>Viewed</span>}
+           {currentUser.seenPosts.includes(post.id) && <span>Viewed <FaCheck /></span>}
           </div>
-          <FaEllipsisV />
         </div>
         <div className="postCenter">
           <span className="postText">{post?.desc}</span>

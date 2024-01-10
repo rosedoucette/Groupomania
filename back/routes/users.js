@@ -120,7 +120,7 @@ router.put("/:id/unfollow", async (req, res) => {
   }
 });
 
-//from conor:
+//Seen Posts:
 router.post("/:userId/:postId", async (req, res) => {
   //this isn't the URL though, so how exactly would this work?
   const user = await User.findByPk(req.params.userId);
