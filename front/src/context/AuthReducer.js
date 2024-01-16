@@ -9,6 +9,8 @@ const AuthReducer = (state, action) => {
     case "LOGIN_SUCCESS":
     case "UPDATE_USER":
       console.log(action);
+      localStorage.setItem("user", JSON.stringify(action.payload));
+      //saving the user to localStorage
       return {
         user: action.payload,
         isFetching: false,
@@ -21,6 +23,8 @@ const AuthReducer = (state, action) => {
         error: action.payload,
       };
     case "LOGOUT":
+      localStorage.removeItem("user");
+      //removing the user from localStorage
       return {
         user: null,
         isFetching: false,
